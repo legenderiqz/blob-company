@@ -106,7 +106,7 @@ const ASSETS = {
 export async function loadAssets() {
   await Promise.all(
     Object.entries(ASSETS).map(([key, fileName]) => 
-      loadImage(key, `/assets/images/${fileName}`)
+      loadImage(key, `./assets/images/${fileName}`)
     )
   );
 }
