@@ -125,12 +125,12 @@ export function getCurrentMusicName() {
 }
 
 export function initSounds() {
-  loadSound('speakerMusic', '/assets/audio/bad_music.m4a');
-  loadSound('click', '/assets/audio/click.wav');
-  loadSound('purchase', '/assets/audio/purchase.mp3');
-  loadSound('pop', '/assets/audio/pop.mp3');
-  loadSound('success', '/assets/audio/success.wav');
+  loadSound('speakerMusic', './assets/audio/bad_music.m4a');
+  loadSound('click', './assets/audio/click.wav');
+  loadSound('purchase', './assets/audio/purchase.mp3');
+  loadSound('pop', './assets/audio/pop.mp3');
+  loadSound('success', './assets/audio/success.wav');
 
-  // loadSound('day', '/assets/audio/day.mp3');
-  // loadSound('night', '/assets/audio/night.mp3');
+  // loadSound('day', './assets/audio/day.mp3');
+  // loadSound('night', './assets/audio/night.mp3');
 }

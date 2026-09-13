@@ -51,7 +51,7 @@ export let postalar = [
   },
   {
     text: 'mails.m17',
-    image: '/assets/images/aiReadingMeme.png',
+    image: './assets/images/aiReadingMeme.png',
     hasImage: true
   },
   {

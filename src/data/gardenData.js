@@ -14,7 +14,7 @@ export function createPlants() {
     title: t('garden.apple.title'),
     description: t('garden.apple.description'),
     price: 50n,
-    image: '/assets/images/appleSeeds.png'
+    image: './assets/images/appleSeeds.png'
   },
   {
     id: 'plant2',
@@ -22,7 +22,7 @@ export function createPlants() {
     title: t('garden.orange.title'),
     description: t('garden.orange.description'),
     price: 100n,
-    image: '/assets/images/orangeSeeds.png'
+    image: './assets/images/orangeSeeds.png'
   },
   {
     id: 'plant3',
@@ -30,7 +30,7 @@ export function createPlants() {
     title: t('garden.wheat.title'),
     description: t('garden.wheat.description'),
     price: 1000n,
-    image: '/assets/images/wheatSeeds.png'
+    image: './assets/images/wheatSeeds.png'
   },
   {
     id: 'plant4',
@@ -38,7 +38,7 @@ export function createPlants() {
     title: t('garden.corn.title'),
     description: t('garden.corn.description'),
     price: 1000n,
-    image: '/assets/images/cornSeeds.png'
+    image: './assets/images/cornSeeds.png'
   }
   ]
 }
