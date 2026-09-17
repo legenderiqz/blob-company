@@ -2,6 +2,9 @@
 
 A small browser game about taking care of a blob pet and somehow turning that into a business.
 
+## Play Now
+Pages Link: [click here to play](https://legenderiqz.github.io/blob-company/)
+
 ## About
 
 Blob Company is a mobile-friendly browser game where you take care of your blob, earn money, buy upgrades, and gradually expand your little operation.
