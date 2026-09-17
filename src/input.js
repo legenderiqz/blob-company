@@ -43,9 +43,7 @@ export function buttonInteractions(up, down, left, right, e, q) {
 }
 
 export function updateKeys() {
-  console.log('deneme1')
   if (gs.menuOpen) return;
-  console.log('deneme2')
   const { keyboard, touch } = gs.keys;
 
   gs.keys.up =
