@@ -684,3 +684,5 @@ function moveSafe(e, nx, ny, world = gs) {
     }
   }
 }
+
+//test
