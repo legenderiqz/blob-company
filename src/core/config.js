@@ -1,5 +1,5 @@
 export const CONFIG = {
-  GOD_MODE: false,
+  GOD_MODE: true,
   
   P_SPEED: 240,
   P_SIZE: 40,

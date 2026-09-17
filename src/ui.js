@@ -1,5 +1,5 @@
 import { gs } from './core/state.js';
-import { buttonInteractions } from './input.js';
+import { buttonInteractions, keyInteractions } from './input.js';
 import { formatCash } from './utils/formatCash.js';
 import { upgrades } from './data/upgradeData.js';
 import { buyUpgrade } from './core/upgradeEngine.js';
@@ -45,6 +45,7 @@ export function initUI() {
   qBtn = document.getElementById('q');
   
   buttonInteractions(upBtn,downBtn,leftBtn,rightBtn,eBtn,qBtn);
+  keyInteractions();
   
   trendwebOverlay = setupOverlay(
     'trendweb-overlay',

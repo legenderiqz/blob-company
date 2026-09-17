@@ -352,7 +352,25 @@ function createKeys() {
     right: false,
     
     ePressed: false,
-    qPressed: false
+    qPressed: false,
+
+    keyboard: {
+      w: false,
+      s: false,
+      a: false,
+      d: false,
+      e: false,
+      q: false
+    },
+
+    touch: {
+      up: false,
+      down: false,
+      left: false,
+      right: false,
+      e: false,
+      q: false
+    }
   }
 }
 
