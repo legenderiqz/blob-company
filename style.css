@@ -92,8 +92,9 @@ button i {
 }
 
 #trendweb-menu {
-  width: min(500px, 90vw);
-  height: min(600px, 80vh);
+
+  width: min(700px, 85vw);
+  height: min(800px, 95vh);
 
   background: #eef4ff;
   border: 3px solid #2f3b52;
@@ -143,12 +144,13 @@ button i {
 
 #trendweb-content {
   flex: 1;
-  padding: 8px;
+  padding: 0px;
   overflow-y: auto;
   align-content: start;
+  -webkit-overflow-scrolling: touch;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 220px));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   justify-content: center;
   gap: 20px;
 
@@ -163,6 +165,40 @@ button i {
       #f8fbff,
       #edf4ff
     );
+}
+
+#trendweb-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+#trendweb-content::-webkit-scrollbar-track {
+  background: #dfe8f8;
+  border-radius: 10px;
+}
+
+#trendweb-content::-webkit-scrollbar-thumb {
+  background: #6b88c8;
+  border-radius: 10px;
+}
+
+#trendweb-content::-webkit-scrollbar-thumb:hover {
+  background: #4f6cad;
+}
+
+@media (max-width: 320px) {
+  #trendweb-content {
+    gap: 8px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .upgrade-card button:disabled {
+    font-size: clamp(15px, 1.9vw, 20px);
+  }
+}
+
+@media (min-width: 520px) {
+  #trendweb-content {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (min-width: 900px) {
@@ -185,7 +221,9 @@ button i {
   overflow: hidden;
   box-sizing: border-box;
 
-  height: 240px;
+  min-width: 0;
+  height: auto;
+  min-height: 240px;
 
   display: flex;
   flex-direction: column;
@@ -194,6 +232,13 @@ button i {
 
   box-shadow:
     0 2px 6px rgba(0,0,0,.12);
+}
+
+.upgrade-card h3,
+.upgrade-card p,
+.upgrade-card button,
+.upgrade-requirement {
+  min-width: 0;
 }
 
 .upgrade-image {
@@ -244,6 +289,9 @@ button i {
 .upgrade-card button {
   margin-top: auto;
 
+  height: 2.6rem;
+  min-height: 2.6rem;
+
   background: linear-gradient(
     to bottom,
     #9dff8d,
@@ -264,6 +312,7 @@ button i {
   padding: 0.2rem 0.6rem;
 
   font-size: clamp(15px, 1.9vw, 20px);
+  box-sizing: border-box;
 }
 
 .upgrade-card button:active {
@@ -277,6 +326,9 @@ button i {
   color: #ccc;
   filter: grayscale(1);
   cursor: default;
+  height: 2.6rem;
+  min-height: 2.6rem;
+  font-size: clamp(12px, 1.6vw, 16px);
 }
 
 .upgrade-info {
@@ -308,8 +360,7 @@ button i {
 
 @media (orientation: landscape) {
   #trendweb-content {
-    gap: 16px;
-    grid-auto-rows: 220px;
+    gap: 8px;
   }
   
   #trendweb-menu {
