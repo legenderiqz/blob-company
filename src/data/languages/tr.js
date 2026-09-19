@@ -285,6 +285,7 @@ export default {
     qPos: 'Devam Butonu',
     qPosLeft: 'Solda',
     qPosRight: 'Sağda',
+    fullScreen: 'Oto Tam Ekran',
     confirmReset: 'Oyunu sıfırlamak istediğine emin misin?',
   },
   

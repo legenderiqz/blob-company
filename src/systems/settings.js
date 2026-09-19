@@ -18,6 +18,7 @@ export function initSettings() {
   const ePos = document.getElementById('e-pos-toggle');
   const qPos = document.getElementById('q-pos-toggle');
   const langBtn = document.getElementById('lang-btn');
+  const fullScreen = document.getElementById('fullScreen-toggle')
   
   btn.onclick = () => {
     overlay.classList.add('active');
@@ -53,6 +54,11 @@ export function initSettings() {
       t('settings.qPos') +
       ': ' + 
       (gs.qPosRight ? t('settings.qPosRight') : t('settings.qPosLeft'));
+
+    fullScreen.textContent =
+      t('settings.fullScreen') +
+      ': ' +
+      (gs.autoFullScreen ? t('settings.on') : t('settings.off'));
       
     resetBtn.textContent = 
       t('settings.reset');
@@ -118,6 +124,13 @@ export function initSettings() {
     qPos.textContent =
       t('settings.qPos') + ': ' + 
       (gs.qPosRight ? t('settings.qPosRight') : t('settings.qPosLeft'));
+  };
+
+  fullScreen.onclick = () => {
+    gs.autoFullScreen = !gs.autoFullScreen;
+    fullScreen.textContent =
+      t('settings.fullScreen') + ': ' + 
+      (gs.autoFullScreen ? t('settings.on') : t('settings.off'));
   };
 
   resetBtn.onclick = () => {

@@ -275,6 +275,7 @@ export default {
     qPos: 'Continue Button',
     qPosLeft: 'Left',
     qPosRight: 'Right',
+    fullScreen: 'Auto Fullscreen',
     confirmReset: 'Are you sure you want to reset the game?',
   },
   

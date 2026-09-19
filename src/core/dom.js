@@ -157,6 +157,8 @@ function createSettingsHTML() {
           <button id="e-pos-toggle"></button>
           
           <button id="q-pos-toggle"></button>
+
+          <button id="fullScreen-toggle"></button>
           
           <hr>
 

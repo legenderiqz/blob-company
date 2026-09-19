@@ -40,6 +40,7 @@ const initialMainAndFps = () => ({
   dtMs: 0,
   paused: false,
   resetting: false,
+  autoFullScreen: true,
 });
 
 const initialEconomy = () => ({
