@@ -7,15 +7,13 @@ import { showNews, updateNews } from './systems/news.js';
 import { updateTime } from './systems/time.js';
 import { updatePlants } from './systems/plants.js';
 import { checkNear } from './systems/near.js';
-import { t } from './core/localization.js';
 import { saveGame } from './systems/save.js';
-import { playSound, playMusic, stopCurrentMusic, getCurrentMusic } from './utils/soundManager.js';
+import { playSound } from './utils/soundManager.js';
 import { addInterval, updateTimeouts, updateIntervals } from './systems/timeout.js';
 
 let canvas;
 let lastTime = performance.now();
 export let dt = 0;
-let autoSaveInterval = null;
 
 export function initUpdating(canvasRef) {
   canvas = canvasRef;
@@ -71,14 +69,22 @@ function setPositions(canvas) {
     gs.player.x = cX - pC;
   if (gs.player.y === null)
     gs.player.y = cY - pC;
+
   if (gs.blob.x === null)
     gs.blob.x = cX - gs.blob.size / 2;
   if (gs.blob.y === null)
     gs.blob.y = gs.player.y + gs.blob.size * 2;
+
   if (gs.stain.x === null)
-    gs.stain.x = cX - gs.blob.size / 2;
+    gs.stain.x = cX - gs.stain.size / 2;
   if (gs.stain.y === null)
-    gs.stain.y = gs.player.y + gs.blob.size * 2;
+    gs.stain.y = gs.player.y + gs.stain.size * 2;
+
+  if (gs.doze.x === null)
+    gs.doze.x = cX - gs.doze.size / 2;
+  if (gs.doze.y === null)
+    gs.doze.y = gs.player.y + gs.doze.size * 2;
+
   if (gs.camera.x === null)
     gs.camera.x = gs.player.x + pC - canvas.width / 2;
   if (gs.camera.y === null)
@@ -147,6 +153,10 @@ function updateAIEntities() {
   // Stain sadece unlock edilmişse aktif
   if (gs.stainUnlocked && gs.stain.active) {
     updateAI(gs.stain, dt, gs);
+  }
+  // Doze sadece unlock edilmişse aktif
+  if (gs.dozeUnlocked && gs.doze.active) {
+    updateAI(gs.doze, dt, gs);
   }
 }
 

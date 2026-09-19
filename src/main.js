@@ -85,6 +85,10 @@ if(CONFIG.GOD_MODE) {
     h: () => {
       gs.blob.hunger = 50;
     },
+
+    save: () => {
+      saveGame();
+    },
   };
 }
 

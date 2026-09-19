@@ -40,7 +40,7 @@ const initialMainAndFps = () => ({
   dtMs: 0,
   paused: false,
   resetting: false,
-  autoFullScreen: true,
+  autoFullscreen: true,
 });
 
 const initialEconomy = () => ({
@@ -194,6 +194,7 @@ const initialUpgrades = () => ({
   newBed: false,
   roommate: false,
   toybox: false,
+  dozeUnlocked: false,
 });
 
 export let gs = createInitialGS()
@@ -246,6 +247,7 @@ export function createInitialGS() {
     // Canlılar
     blob: createBlob(),
     stain: createStain(),
+    doze: createDoze(),
 
     // Entity ayarları
     blobWaitingTime: 3,
@@ -326,6 +328,30 @@ export function createStain() {
     timer: 0,
     ai: ['wander'],
     aiState: 'wander',
+    
+    active: false
+  }
+}
+
+export function createDoze() {
+  return {
+    x: null,
+    y: null,
+    
+    speed: CONFIG.B_SPEED - 60,
+    size: CONFIG.B_SIZE,
+    
+    type: 'doze',
+    sprite: 'doze',
+    room: 'house',
+    
+    tx: null,
+    ty: null,
+    
+    timer: 0,
+    ai: ['wander', 'sleep'],
+    aiState: 'wander',
+    slept: false,
     
     active: false
   }

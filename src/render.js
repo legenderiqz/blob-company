@@ -41,6 +41,7 @@ export function render(ctx) {
 }
 
 function drawEntities(ctx) {
+  drawDoze(ctx);
   drawStain(ctx);
   drawPlayer(ctx);
   drawBlob(ctx);
@@ -531,6 +532,35 @@ function drawStain(ctx) {
   );
 }
 
+function drawDoze(ctx) {
+  // Stain unlock edilmemiş veya aktif değilse çizme
+  if (!gs.dozeUnlocked || !gs.doze.active) return;
+  
+  const d = gs.doze;
+  const img = getImage(d.sprite);
+
+  if (!(img instanceof HTMLImageElement)) return;
+  if (!img.complete) return;
+  if (gs.currentRoom !== d.room) return;
+
+  const scaleX = d.size / img.width;
+  const scaleY = d.size / img.height;
+
+  const drawWidth = img.width * scaleX;
+  const drawHeight = img.height * scaleY;
+
+  const offsetX = (d.size - drawWidth) / 2;
+  const offsetY = (d.size - drawHeight) / 2;
+
+  ctx.drawImage(
+    img,
+    d.x - gs.camera.x + offsetX,
+    d.y - gs.camera.y + offsetY,
+    drawWidth,
+    drawHeight
+  );
+}
+
 function drawBlob(ctx) {
   const b = gs.blob;
   selectBlobImage();
@@ -668,6 +698,22 @@ function drawDebug(ctx) {
       s.y - gs.camera.y,
       s.size,
       s.size
+    );
+  }
+
+  // Doze debug çizimi
+  if (gs.dozeUnlocked &&
+    gs.doze.active &&
+    gs.doze.room === gs.currentRoom
+  ) {
+    const d = gs.doze;
+    ctx.strokeStyle = 'red';  // Farklı renk olsun
+    
+    ctx.strokeRect(
+      d.x - gs.camera.x,
+      d.y - gs.camera.y,
+      d.size,
+      d.size
     );
   }
 }

@@ -318,6 +318,13 @@ function createUpgrades() {
       description: t('upgrades.kilim.description'),
       price: 400_000n,
       image: './assets/images/rug.png',
+    },
+    {
+      id: 'doze',
+      title: t('upgrades.doze.title'),
+      description: t('upgrades.doze.description'),
+      price: 450_000n,
+      image: './assets/images/dozeUpg.png'
     }
   ];
 }

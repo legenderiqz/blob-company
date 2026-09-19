@@ -55,7 +55,7 @@ export default {
 
     stain: {
       title: 'Stain',
-      description: 'Blob\'un acıkmayan kardeşi. Tıklama geliri +10 artar. UwU yapmayı seviyor.'
+      description: 'Blob\'un acıkmayan kız kardeşi. Tıklama geliri +10 artar. UwU yapmayı seviyor.'
     },
     
     toybox: {
@@ -220,7 +220,12 @@ export default {
     
     kilim: {
       title: 'Altın Kaplama Kilim',
-      description: 'Biraz şüpheli görünüyor. Tıklama geliri +200 artar.'
+      description: 'Biraz şüpheli görünüyor. Tıklama geliri +250 artar.'
+    },
+
+    doze: {
+      title: 'Doze',
+      description: 'Blob\'un sürekli uykulu erkek kardeşi. Tıklama geliri +270 artar.'
     },
   },
   

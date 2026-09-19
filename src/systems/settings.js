@@ -127,10 +127,10 @@ export function initSettings() {
   };
 
   fullScreen.onclick = () => {
-    gs.autoFullScreen = !gs.autoFullScreen;
+    gs.autoFullscreen = !gs.autoFullscreen;
     fullScreen.textContent =
       t('settings.fullScreen') + ': ' + 
-      (gs.autoFullScreen ? t('settings.on') : t('settings.off'));
+      (gs.autoFullscreen ? t('settings.on') : t('settings.off'));
   };
 
   resetBtn.onclick = () => {

@@ -45,7 +45,7 @@ function tryPoop(e, dt) {
 }
 
 function trySleep(e, dt) {
-  if (e.aiState === 'sleep') {
+  if (e.aiState === 'sleep') { 
     sleep(e, dt);
     return true;
   }
@@ -68,6 +68,7 @@ function tryPlay(e, dt) {
 
 export function updateAI(entity, dt) {
   if (!entity?.ai) return;
+  if (!entity.active) return;
   entity.stateTimer ??= 0;
   entity.stateTimer += dt;
   
@@ -126,6 +127,7 @@ export function updateAI(entity, dt) {
   
   if (
     entity.aiState === 'sleep' &&
+    entity.ai.includes('eat') &&
     entity.hunger < gs.hungerLimit
   ) {
     setState(entity, 'wander');
@@ -144,6 +146,7 @@ export function updateAI(entity, dt) {
   }
   
   if (
+    entity.ai.includes('eat') &&
     entity.hunger < gs.hungerLimit &&
     (
       entity.aiState === 'play' ||
@@ -190,7 +193,10 @@ export function updateAI(entity, dt) {
     gs.currentDayStage === 'night' &&
     !entity.slept &&
     entity.aiState === 'wander' &&
-    entity.hunger >= gs.hungerLimit
+    (
+      !entity.ai.includes('eat') ||
+      entity.hunger >= gs.hungerLimit
+    )
   ) {
     setState(entity, 'sleep');
   }
@@ -504,7 +510,7 @@ function goForPoop(dt, e) {
 
 
 function sleep(e, dt) {
-  if (e.hunger < gs.hungerLimit) {
+  if (e.ai.includes('eat') && e.hunger < gs.hungerLimit) {
     eat(e, dt)
     return;
   }
@@ -516,7 +522,7 @@ function sleep(e, dt) {
   
   const bed = gs.objects.find(o => o.type === 'bed');
   if (!bed) return;
-  if (e.type !== 'blob') return;
+  if (!e.ai.includes('sleep')) return;
 
   // AI state'i kontrol et
   if (e.aiState === 'sleep') {
@@ -525,7 +531,8 @@ function sleep(e, dt) {
 }
 
 function checkSleeping(e, dt, bed) {
-  e.tx = bed.x + bed.width/2 - e.size/2;
+  e.tx = setSleeperTx(e, bed);
+  
   e.ty = bed.y + bed.height/2 - e.size/2;
   
   moveToTarget(e, dt, false);
@@ -536,6 +543,19 @@ function checkSleeping(e, dt, bed) {
   if (dx * dx + dy * dy < CONFIG.MIN_DIST) {
     handleSleep(e, dt);
   }
+}
+
+function setSleeperTx(e, bed) {
+  let tx = bed.x + bed.width / 2 - e.size / 2;
+  switch (e.type) {
+    case 'blob':
+      tx = bed.x + bed.width - e.size;
+      break;
+    case 'doze':
+      tx = bed.x + e.size / 2;
+      break;
+  }
+  return tx;
 }
 
 function handleSleep(e, dt) {

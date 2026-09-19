@@ -106,7 +106,7 @@ export function canvasInteractions() {
   canvas.addEventListener('pointerup', (e) => {
     try {
       if (
-        gs.autoFullScreen &&
+        gs.autoFullscreen &&
         !document.fullscreenElement
       ) {
         const el = document.documentElement;

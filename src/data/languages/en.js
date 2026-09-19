@@ -221,8 +221,13 @@ export default {
     
     kilim: {
       title: 'Gold Plated Rug',
-      description: 'Looks a bit sus. Click income +200.'
+      description: 'Looks a bit sus. Click income +250.'
     },
+
+    doze: {
+      title: 'Doze',
+      description: 'Blob\'s brother who is always sleepy. Click income +270.'
+    }
   },
   
   req: {

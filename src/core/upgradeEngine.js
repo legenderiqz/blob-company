@@ -414,7 +414,13 @@ export function buyUpgrade(id, btn) {
       );
       kilim.active = true;
       kilim.visible = true;
-      purchase(upg, btn, 150n);
+      purchase(upg, btn, 250n);
+      break;
+
+    case 'doze':
+      gs.dozeUnlocked = true;
+      gs.doze.active = true;
+      purchase(upg, btn, 270n);
       break;
   }
 }

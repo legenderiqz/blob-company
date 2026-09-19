@@ -40,6 +40,7 @@ const ASSETS = {
   carpet1: 'carpet1.png',
   carpet2: 'carpet2.png',
   stain: 'stain.png',
+  doze: 'doze.png',
   toybox: 'toybox.png',
   ball: 'ball.png',
   bone: 'bone.png',
