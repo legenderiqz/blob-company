@@ -43,12 +43,14 @@ export function render(ctx) {
   drawSelectedObject(ctx);
   
   drawEntities(ctx);
-
-  ctx.restore()
   
   drawDebug(ctx);
   
   drawUI(ctx);
+
+  ctx.restore()
+
+  drawNews(ctx);
 }
 
 function drawEntities(ctx) {
@@ -761,7 +763,6 @@ function drawUI(ctx) {
     ctx.fillText(`HAPPY: ${Math.floor(gs.happiness)}`, 10, 60);
   }
   drawToyMenu(ctx);
-  drawNews(ctx);
   drawInteractionGuide(ctx);
 }
 
@@ -797,22 +798,87 @@ export function drawInteractionGuide(ctx) {
 export function drawNews(ctx) {
   ctx.save();
 
-  ctx.font = `bold ${gs.newsFontSize}px monospace`;
+  ctx.font =
+    `bold ${gs.newsFontSize}px monospace`;
+
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
+  const maxWidth =
+    canvas.width * 0.8 * gs.camera.zoom;
+
+  const lineHeight =
+    gs.newsFontSize + 4;
+
   for (const n of gs.news) {
-    const x = canvas.width / 2;
+
+    const x =
+      canvas.width / 2;
+
+    const lines = wrapText(
+      ctx,
+      n.text,
+      maxWidth
+    );
 
     ctx.lineWidth = 4;
     ctx.strokeStyle = 'black';
-    ctx.strokeText(n.text, x, n.y);
-
     ctx.fillStyle = n.color;
-    ctx.fillText(n.text, x, n.y);
+
+    const startY =
+      n.y -
+      ((lines.length - 1) * lineHeight) / 2;
+
+    for (let i = 0; i < lines.length; i++) {
+
+      const y =
+        startY +
+        i * lineHeight;
+
+      ctx.strokeText(
+        lines[i],
+        x,
+        y
+      );
+
+      ctx.fillText(
+        lines[i],
+        x,
+        y
+      );
+    }
   }
 
   ctx.restore();
+}
+
+function wrapText(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+
+  let line = '';
+
+  for (const word of words) {
+    const testLine = line
+      ? `${line} ${word}`
+      : word;
+
+    if (
+      line &&
+      ctx.measureText(testLine).width > maxWidth
+    ) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = testLine;
+    }
+  }
+
+  if (line) {
+    lines.push(line);
+  }
+
+  return lines;
 }
 
 function drawPlots(ctx, obj) {

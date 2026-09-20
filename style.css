@@ -130,8 +130,8 @@ button i {
 }
 
 #trendweb-close {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 
   border: 1px solid rgba(0,0,0,.25);
   border-radius: 6px;
@@ -263,7 +263,7 @@ button i {
 
 .upgrade-card p {
   color: #555;
-  font-size: 11px;
+  font-size: 12px;
   
   flex: 1;
   overflow-y: auto;
@@ -311,7 +311,7 @@ button i {
   min-height: 2.2rem;
   padding: 0.2rem 0.6rem;
 
-  font-size: clamp(15px, 1.9vw, 20px);
+  font-size: clamp(18px, 2.6vw, 30px);
   box-sizing: border-box;
 }
 
@@ -390,28 +390,29 @@ button i {
    TOPBAR FIX
 ========================= */
 
-#topBar {      
-  position: fixed;    
+#topBar {
+  position: fixed;
   pointer-events: none;
-  top: calc(5px + env(safe-area-inset-top));      
-  left: 50%;      
-      
-  transform: translateX(-50%);      
-      
-  padding: 4px 8px 4px 4px;      
-      
-  border-radius: 12px;      
-      
-  background: rgba(0, 0, 0, 0.7);      
-  color: #36D348;      
-      
-  font-size: 19px;      
-  font-weight: bold;      
-      
-  z-index: 1000;   
+
+  top: calc(5px + env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 4px 8px 4px 4px;
+
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, 0.7);
+  color: #36D348;
+
+  font-size: clamp(19px, 2vw, 32px);
+  font-weight: bold;
+
+  z-index: 1000;
+
   display: flex;
   align-items: center;
-}      
+}
 
 #topBar span, #topBar i {
   display: inline-block;
@@ -839,8 +840,8 @@ button i {
   
   transform: translateY(-50%);
 
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
 
   margin: 0;
 
@@ -849,7 +850,7 @@ button i {
 
   border-radius: 50%;
 
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 300;
 
   padding: 0;

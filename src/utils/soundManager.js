@@ -1,3 +1,5 @@
+import { gs } from '../core/state.js';
+
 const sounds = {};
 
 export let currentMusic = null;
@@ -77,6 +79,7 @@ export function stopCurrentMusic() {
 ===================== */
 
 export function playSound(name, volume = 1) {
+  if (!gs.soundEnabled) return;
   const sound = sounds[name];
 
   if (!sound) return;

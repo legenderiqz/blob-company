@@ -260,6 +260,20 @@ export function updateCameraZoom() {
   if(!gs.setCameraZoom) return;
   gs.setCameraZoom = false;
 
+  const shortSide = Math.min(
+    canvas.width,
+    canvas.height
+  );
+
+  gs.newsFontSize = Math.round(
+    shortSide / 35
+  );
+
+  gs.newsFontSize = Math.max(
+    13,
+    Math.min(24, gs.newsFontSize)
+  );
+
   const room = gs.rooms['house'];
 
   const zoomX = canvas.width / room.width;

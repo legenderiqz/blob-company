@@ -58,7 +58,7 @@ export function initSettings() {
     fullScreen.textContent =
       t('settings.fullScreen') +
       ': ' +
-      (gs.autoFullScreen ? t('settings.on') : t('settings.off'));
+      (gs.autoFullscreen ? t('settings.on') : t('settings.off'));
       
     resetBtn.textContent = 
       t('settings.reset');
