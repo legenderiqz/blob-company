@@ -71,6 +71,8 @@ const initialTimeSystem = () => ({
 
 const initialMechanics = () => ({
   currentLang: getInitialLanguage(),
+
+  setCameraZoom: false,
   
   ePosRight: true,
   qPosRight: true,

@@ -14,6 +14,8 @@ export function initRendering(ctx) {
   function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
+    gs.setCameraZoom = true;
   }
  
   resize();
@@ -24,6 +26,13 @@ export function initRendering(ctx) {
 
 export function render(ctx) {
   clear(ctx);
+
+  ctx.save();
+
+  ctx.scale(
+    gs.camera.zoom,
+    gs.camera.zoom
+  );
   
   drawWorld(ctx);
   
@@ -34,6 +43,8 @@ export function render(ctx) {
   drawSelectedObject(ctx);
   
   drawEntities(ctx);
+
+  ctx.restore()
   
   drawDebug(ctx);
   

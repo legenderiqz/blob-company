@@ -1,5 +1,6 @@
 export const CONFIG = {
   GOD_MODE: false,
+  VERSION: '1.0.1',
   
   P_SPEED: 240,
   P_SIZE: 40,

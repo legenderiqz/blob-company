@@ -99,6 +99,7 @@ export function update() {
   updateFPS();
   tryMove();
   clampPlayer();
+  updateCameraZoom();
   clampCam();
   checkNear(dt);
   updateAIEntities();
@@ -213,20 +214,61 @@ export function tryMove() {
 }
 
 export function clampCam() {
-  const targetX = gs.player.x + gs.player.size / 2 - canvas.width / 2;
-  const targetY = gs.player.y + gs.player.size / 2 - canvas.height / 2;
-  
-  if (canvas.width >= gs.rooms[gs.currentRoom].width) {
-    gs.camera.x = (gs.rooms[gs.currentRoom].width - canvas.width) / 2;
+  const room = gs.rooms[gs.currentRoom];
+
+  const viewWidth = canvas.width / gs.camera.zoom;
+  const viewHeight = canvas.height / gs.camera.zoom;
+
+  const targetX =
+    gs.player.x +
+    gs.player.size / 2 -
+    viewWidth / 2;
+
+  const targetY =
+    gs.player.y +
+    gs.player.size / 2 -
+    viewHeight / 2;
+
+  if (viewWidth >= room.width) {
+    gs.camera.x =
+      (room.width - viewWidth) / 2;
   } else {
-    gs.camera.x = Math.max(0, Math.min(gs.rooms[gs.currentRoom].width - canvas.width, targetX));
+    gs.camera.x = Math.max(
+      0,
+      Math.min(
+        room.width - viewWidth,
+        targetX
+      )
+    );
   }
-  
-  if (canvas.height >= gs.rooms[gs.currentRoom].height) {
-    gs.camera.y = (gs.rooms[gs.currentRoom].height - canvas.height) / 2;
+
+  if (viewHeight >= room.height) {
+    gs.camera.y =
+      (room.height - viewHeight) / 2;
   } else {
-    gs.camera.y = Math.max(0, Math.min(gs.rooms[gs.currentRoom].height - canvas.height, targetY));
+    gs.camera.y = Math.max(
+      0,
+      Math.min(
+        room.height - viewHeight,
+        targetY
+      )
+    );
   }
+}
+
+export function updateCameraZoom() {
+  if(!gs.setCameraZoom) return;
+  gs.setCameraZoom = false;
+
+  const room = gs.rooms['house'];
+
+  const zoomX = canvas.width / room.width;
+  const zoomY = canvas.height / room.height;
+
+  gs.camera.zoom = Math.max(
+    1,
+    Math.floor(Math.min(zoomX, zoomY))
+  );
 }
 
 export function clampPlayer() {
@@ -239,13 +281,22 @@ export function clampPlayer() {
 
 export function canvasClicked(e) {
   const rect = canvas.getBoundingClientRect();
-  const worldX = (e.clientX - rect.left) + gs.camera.x;
-  const worldY = (e.clientY - rect.top) + gs.camera.y;
-  const b = gs.blob;
-  
-  if (pointInObject(worldX, worldY, b)) {
+
+  const pos = screenToWorld(
+    e.clientX - rect.left,
+    e.clientY - rect.top
+  );
+
+  if (pointInObject(pos.x, pos.y, gs.blob)) {
     clickBlob();
   }
+}
+
+export function screenToWorld(screenX, screenY) {
+  return {
+    x: screenX / gs.camera.zoom + gs.camera.x,
+    y: screenY / gs.camera.zoom + gs.camera.y
+  };
 }
 
 export function pointInObject(x,y,obj) {
