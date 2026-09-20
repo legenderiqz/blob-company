@@ -72,6 +72,10 @@ const initialTimeSystem = () => ({
 const initialMechanics = () => ({
   currentLang: getInitialLanguage(),
 
+  floatingTexts: [],
+
+  critChance: 1,
+
   setCameraZoom: false,
   
   ePosRight: true,

@@ -45,6 +45,8 @@ export function render(ctx) {
   drawEntities(ctx);
   
   drawDebug(ctx);
+
+  drawFloatingTexts(ctx);
   
   drawUI(ctx);
 
@@ -952,6 +954,69 @@ function drawNightOverlay(ctx) {
     canvas.width,
     canvas.height
   );
+
+  ctx.restore();
+}
+
+
+export function drawFloatingTexts(ctx) {
+
+  ctx.save();
+
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  for (const f of gs.floatingTexts) {
+
+    const alpha =
+      f.life / f.maxLife;
+
+    ctx.globalAlpha = alpha;
+
+    const size =
+      Math.max(
+        14,
+        Math.round(28 * f.scale)
+      );
+
+    ctx.font =
+      `bold ${size}px monospace`;
+
+    const screenX =
+      Math.floor(
+        f.x - gs.camera.x
+      );
+
+    const screenY =
+      Math.floor(
+        f.y - gs.camera.y
+      );
+
+    ctx.fillStyle = 'black';
+
+    ctx.fillText(f.text, screenX - 1, screenY);
+    ctx.fillText(f.text, screenX + 1, screenY);
+    ctx.fillText(f.text, screenX, screenY - 1);
+    ctx.fillText(f.text, screenX, screenY + 1);
+    
+    if (f.boost > gs.cashIncrease) {
+      ctx.fillStyle = '#0066ff';
+    }
+    if (f.boost === gs.cashIncrease) {
+      ctx.fillStyle = '#00cc41';
+    }
+    if (f.boost < gs.cashIncrease) {
+      ctx.fillStyle = '#33ff00';
+    }
+    if (f.boost < gs.cashIncrease / 2n) {
+      ctx.fillStyle = '#a2ff00';
+    }
+    if (f.boost === 0n) {
+      ctx.fillStyle = '#ffd700';
+    }
+
+    ctx.fillText(f.text, screenX, screenY);
+  }
 
   ctx.restore();
 }

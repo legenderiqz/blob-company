@@ -35,7 +35,7 @@ export default {
 
     hali: {
       title: 'Yeni Halı',
-      description: 'Halıya renk gelir. Tıklama gelirini +8 artırır.'
+      description: 'Halıya renk gelir. Kritik tıklama şansını %5 yapar. Tıklama gelirini +8 artırır.'
     },
 
     boyIksiri1: {
@@ -110,7 +110,7 @@ export default {
     
     chocolate: {
       title: 'Çikolata',
-      description: 'Blob çikolata yer. Tıklama geliri +30 artar.'
+      description: 'Blob çikolata yer. Kritik tıklama şansını %10 yapar. Tıklama geliri +30 artar.'
     },
     
     boyIksiri3: {

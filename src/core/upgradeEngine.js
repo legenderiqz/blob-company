@@ -52,6 +52,7 @@ export function buyUpgrade(id, btn) {
       
     case 'hali':
       gs.newCarpet = true;
+      gs.critChance = 5;
       purchase(upg, btn, 8n);
       break;
     
@@ -163,6 +164,7 @@ export function buyUpgrade(id, btn) {
       break;
       
     case 'cikolata':
+      gs.critChance = 10;
       purchase(upg, btn, 30n);
       break;
       

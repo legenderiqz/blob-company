@@ -110,6 +110,7 @@ export function update() {
   updateBlobHappiness(dt);
   updateTimeouts(dt);
   updateIntervals(dt);
+  updateFloatingTexts(dt);
   //updateAmbientMusic()
   
   gs.keys.ePressed = false;
@@ -324,8 +325,48 @@ export function clickBlob() {
   const now = Date.now();
   if (now - gs.lastBlobClick < CONFIG.B_COOLDOWN) return;
   gs.lastBlobClick = now;
+  if (Math.random() * 100 <= gs.critChance) {
+    gs.cashBoost = gs.cashIncrease;
+  } else {
+    gs.cashBoost = 0n;
+  }
   gs.cash += gs.cashIncrease + gs.cashBoost;
   playSound('pop');
+  createFloatingText(
+    `+${gs.cashIncrease + gs.cashBoost}`,
+    gs.blob.x + (Math.random() * 20),
+    gs.blob.y - gs.blob.size,
+    gs.cashBoost
+  )
+}
+
+export function createFloatingText(text, x, y, boost) {
+  gs.floatingTexts.push({
+    text,
+    x,
+    y,
+    life: 0.7,
+    maxLife: 0.7,
+    scale: 1.8,
+    boost
+  });
+}
+
+export function updateFloatingTexts(dt) {
+  for (let i = gs.floatingTexts.length - 1; i >= 0; i--) {
+
+    const f = gs.floatingTexts[i];
+
+    f.life -= dt;
+
+    f.y -= 120 * dt;
+
+    f.scale -= 1.4 * dt;
+
+    if (f.life <= 0) {
+      gs.floatingTexts.splice(i, 1);
+    }
+  }
 }
 
 export function updateAutoIncrease(dt) {

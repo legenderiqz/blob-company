@@ -36,7 +36,7 @@ export default {
   
     hali: {
       title: 'New Carpet',
-      description: 'The carpet gets some color. Click income +8.'
+      description: 'The carpet gets some color. Makes critical click chance 5%. Click income +8.'
     },
   
     boyIksiri1: {
@@ -111,7 +111,7 @@ export default {
   
     chocolate: {
       title: 'Chocolate',
-      description: 'Blob eats chocolate. Click income +30.'
+      description: 'Blob eats chocolate. Makes critical click chance 10%. Click income +30.'
     },
   
     boyIksiri3: {
