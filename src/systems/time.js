@@ -1,7 +1,6 @@
 import { gs } from '../core/state.js';
 import { updatePosta } from './mails.js';
 import { showNews } from './news.js';
-import { t } from '../core/localization.js';
 
 export function updateTime(dt) {
   gs.time += dt;

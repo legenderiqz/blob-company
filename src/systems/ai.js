@@ -237,6 +237,7 @@ export function spawnMoneyBag(e) {
 ========================= */
 
 function wander(e, dt) {
+
   const house = gs.rooms.house;
 
   const minX = gs.safeMargin;
@@ -246,40 +247,42 @@ function wander(e, dt) {
   const maxY = house.height - e.size - gs.safeMargin;
 
   if (e.tx == null || e.ty == null) {
-    chooseWanderTarget(e, minX, maxX, minY, maxY);
+    chooseWanderTarget(
+      e,
+      minX,
+      maxX,
+      minY,
+      maxY
+    );
   }
 
-  const dx = e.tx - e.x;
-  const dy = e.ty - e.y;
-  const dist = Math.hypot(dx, dy);
+  const reached =
+    moveToTarget(e, dt, false);
 
-  const speed = e.speed * dt * (e.speedMulti ?? 1);
+  if (!reached) return;
 
-  if (dist <= speed) {
-    e.x = e.tx;
-    e.y = e.ty;
+  e.tx = null;
+  e.ty = null;
 
-    e.tx = null;
-    e.ty = null;
+  if (
+    e.hunger >= gs.hungerLimit ||
+    e.hunger === undefined
+  ) {
 
-    if (e.hunger >= gs.hungerLimit || e.hunger === undefined) {
+    if (e.poopWaiting) {
+      gs.happiness -= 10;
 
-      if (e.poopWaiting) {
-        gs.happiness -= 10;
-        e.poopWaiting = false;
-        applyPoopEffects(e, false);
-      }
+      e.poopWaiting = false;
 
-      e.idleTimer = gs.blobWaitingTime;
+      applyPoopEffects(
+        e,
+        false
+      );
     }
 
-    return;
+    e.idleTimer =
+      gs.blobWaitingTime;
   }
-
-  const nx = e.x + (dx / dist) * speed;
-  const ny = e.y + (dy / dist) * speed;
-
-  moveSafe(e, nx, ny, gs);
 }
 
 function chooseWanderTarget(e, minX, maxX, minY, maxY) {
@@ -368,6 +371,23 @@ function chooseRandomTarget(e, minX, maxX, minY, maxY) {
   );
 }
 
+export function setWanderTarget(x, y, e = gs.blob) {
+  if (!CONFIG.GOD_MODE) return;
+
+  if (collides(x, y, e.size, gs)) {
+    console.warn(
+      'Target collides with object.'
+    );
+  }
+
+  e.tx = x;
+  e.ty = y;
+
+  console.log(
+    `Wander target set to (${x}, ${y})`
+  );
+}
+
 /* =========================
    EAT 
 ========================= */
@@ -432,7 +452,7 @@ function handleEat(e) {
 }
 
 /* =========================
-   POOP (DÜZELTİLMİŞ)
+   POOP
 ========================= */
 
 
@@ -505,7 +525,7 @@ function goForPoop(dt, e) {
 }
 
 /* =========================
-   SLEEP (DÜZELTİLMİŞ)
+   SLEEP
 ========================= */
 
 
@@ -627,27 +647,46 @@ function applyPlayEffects(e) {
 ========================= */
 
 function moveToTarget(e, dt, applySlowness = true) {
-  if (e.tx === null || e.ty === null) return;
-  
+  if (e.tx == null || e.ty == null) return false;
+
   const dx = e.tx - e.x;
   const dy = e.ty - e.y;
+
   const dist = Math.hypot(dx, dy);
-  
-  if (dist < 1) {
-    e.x = e.tx;
-    e.y = e.ty;
-    return;
-  }
-  
+
   let speed = e.speed || CONFIG.B_SPEED;
+
   if (applySlowness) {
-    speed = speed / gs.slowness;
+    speed /= gs.slowness;
   }
-  
+
   const step = speed * dt;
-  
-  e.x += (dx / dist) * Math.min(step, dist);
-  e.y += (dy / dist) * Math.min(step, dist);
+
+  if (dist <= step) {
+
+    if (!collides(e.tx, e.ty, e.size, gs)) {
+      e.x = e.tx;
+      e.y = e.ty;
+    }
+
+    return true;
+  }
+
+  const nx =
+    e.x + (dx / dist) * step;
+
+  const ny =
+    e.y + (dy / dist) * step;
+
+  if (!collides(nx, ny, e.size, gs)) {
+    e.x = nx;
+    e.y = ny;
+  } else {
+    e.tx = null;
+    e.ty = null;
+  }
+
+  return false;
 }
 
 /* =========================
@@ -657,8 +696,7 @@ function moveToTarget(e, dt, applySlowness = true) {
 function moveSafe(e, nx, ny, world = gs) {
   e.x = nx;
   e.y = ny;
-
-  // moveSafe başında
+  
   if (collides(nx, ny, e.size, world)) {
     const angle = Math.random() * Math.PI * 2;
 

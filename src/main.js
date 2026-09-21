@@ -1,5 +1,10 @@
 
-import { initUI, initTrendweb, applyEPosChange, applyQPosChange } from './ui.js';
+import { 
+  initUI, 
+  initTrendweb, 
+  applyEPosChange, 
+  applyQPosChange 
+} from './ui.js';
 import { loadAssets } from './utils/imageManager.js';
 import { canvasInteractions } from './input.js';
 import { loadGame, saveGame } from './systems/save.js';
@@ -12,6 +17,7 @@ import { initUpdating, update } from './update.js';
 import { initDOM } from './core/dom.js';
 import { gs } from './core/state.js';
 import { CONFIG } from './core/config.js';
+import { setWanderTarget } from './systems/ai.js';
 
 let ctx;
 
@@ -66,7 +72,7 @@ window.addEventListener('error', (event) => {
 if(CONFIG.GOD_MODE) {
   window.db = {
     // Shortcut to give player gold/money: db.g(500)
-    c: (amount = 100) => {
+    c: (amount = 10000000n) => {
       gs.cash += BigInt(amount);
       console.log(`💰 Added ${amount} cash. Total: ${gs.cash}`);
     },
@@ -89,7 +95,9 @@ if(CONFIG.GOD_MODE) {
     save: () => {
       saveGame();
     },
+
+    blobPos: (x, y, e = gs.blob) => {
+      setWanderTarget(x, y, e)
+    }
   };
 }
-
-const q = document.getElementById("q");

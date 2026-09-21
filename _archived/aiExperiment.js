@@ -445,7 +445,7 @@ function wander(e, dt) {
   const ny =
     e.y + (dy / dist) * speed;
 
-  moveSafe(e, nx, ny, gs);
+  moveToTarget(e, dt, nx, ny);
 }
 
 function handleReachedTarget(e) {

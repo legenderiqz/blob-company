@@ -1,6 +1,6 @@
 
-import { getGameDiv, getCanvas } from './core/dom.js';
-import { gs, createInitialGS } from './core/state.js';
+import { getCanvas } from './core/dom.js';
+import { gs } from './core/state.js';
 import { CONFIG } from './core/config.js';
 import { getImage } from './utils/imageManager.js';
 import { t } from './core/localization.js';

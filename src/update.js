@@ -9,7 +9,11 @@ import { updatePlants } from './systems/plants.js';
 import { checkNear } from './systems/near.js';
 import { saveGame } from './systems/save.js';
 import { playSound } from './utils/soundManager.js';
-import { addInterval, updateTimeouts, updateIntervals } from './systems/timeout.js';
+import { 
+  addInterval,
+  updateTimeouts,
+  updateIntervals 
+} from './systems/timeout.js';
 
 let canvas;
 let lastTime = performance.now();
@@ -403,7 +407,7 @@ function updateBlobHappiness(dt) {
   gs.fleeChance = (100 - gs.happiness) / 400;
   
   // Olaylara göre mutluluk
-  switch (gs.happinessEvent) {
+  switch (event) {
     case 'big_up':
       gs.happiness += 10;
       break;
@@ -418,7 +422,7 @@ function updateBlobHappiness(dt) {
       break;
   }
   
-  if (gs.blob.hunger > gs.maxEntityHunger) {
+  if (h > gs.maxEntityHunger) {
     gs.happiness += gs.happinessGain * dt;
   } else {
     gs.happiness += (gs.happinessTarget - gs.happiness) * gs.happinessEqualize * dt;
