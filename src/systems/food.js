@@ -40,18 +40,20 @@ export function putFoodIntoBowl() {
   gs.eatEffect = EAT_EFFECTS[gs.bowlFood];
 }
 
+function finishCooking() {
+  const recipe = getRecipe(gs.furnaceItems);
+  if (recipe) gs.furnaceFood = recipe.result;
+  else gs.furnaceFood = 'coal';
+  gs.furnaceFinish = true;
+  gs.furnaceItems = [];
+  gs.furnaceCooking = false;
+}
+
+actions.cookFood = finishCooking;
+
 export function startCooking() {
   gs.furnaceCooking = true;
-  
-  actions.cookFood = () => {
-    const recipe = getRecipe(gs.furnaceItems);
-    if (recipe) gs.furnaceFood = recipe.result;
-    else gs.furnaceFood = 'coal';
-    gs.furnaceFinish = true;
-    gs.furnaceItems = [];
-    gs.furnaceCooking = false;
-  };
-  
+
   addTimeout('waitCook', 'cookFood', RECIPES[0].duration);    
 }
 

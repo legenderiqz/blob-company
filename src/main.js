@@ -14,18 +14,17 @@ import { initUpgrades } from './data/upgradeData.js';
 import { initPlants } from './data/gardenData.js';
 import { initRendering, render } from './render.js';   
 import { initUpdating, update } from './update.js';
-import { initDOM } from './core/dom.js';
+import { getCanvas, initDOM } from './core/dom.js';
 import { gs } from './core/state.js';
 import { CONFIG } from './core/config.js';
 import { setWanderTarget } from './systems/ai.js';
 
+let canvas;
 let ctx;
 
 function setRealHeight() {
-  requestAnimationFrame(() => {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', vh + 'px');
-  });
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', vh + 'px');
 }
 
 function loop() {
@@ -41,6 +40,7 @@ async function init() {
   initSounds();
   initDOM();
 
+  canvas = getCanvas();
   ctx = canvas.getContext('2d');
   gs.ctx = ctx;
   initUI();

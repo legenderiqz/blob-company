@@ -16,9 +16,12 @@ export function t(key) {
 }
 
 export function detectUserLanguage() {
-  const browserLang = navigator.language || navigator.userLanguage;
-  const langCode = browserLang.split('-')[0];
-  return Object.keys(languages).includes(langCode) ? langCode : 'en';
+  const browserLang = navigator.language || navigator.userLanguage || '';
+  const isTurkishLocale = /^tr-TR(?:-|$)/i.test(browserLang);
+  const isInTurkey =
+    Intl.DateTimeFormat().resolvedOptions().timeZone === 'Europe/Istanbul';
+
+  return isTurkishLocale || isInTurkey ? 'tr' : 'en';
 }
 
 export function getInitialLanguage() {

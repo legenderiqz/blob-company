@@ -106,6 +106,7 @@ export function initSettings() {
     gs.currentLang =
       languageKeys[(index + 1) % languageKeys.length];
     
+    localStorage.setItem('preferred-language', gs.currentLang);
     saveGame();
     location.reload();
   };
@@ -139,4 +140,3 @@ export function initSettings() {
     }
   };
 }
-

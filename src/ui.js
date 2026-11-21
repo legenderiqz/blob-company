@@ -10,9 +10,6 @@ import { resetGame } from './utils/resetGame.js';
 import { buyPlant } from './core/gardenEngine.js';
 import { CONFIG } from './core/config.js';
 
-// DİKKAT: UPDATE.JSDEN VERİ ÇEKME!
-// butonlarda data-sound="click" şeklinde ses ver
-
 let uiRoot;
 let gameDiv;
 let trendwebOverlay;
@@ -96,7 +93,6 @@ function toggleControls() {
   }
 }
 
-// openTrendweb fonksiyonunu düzenle:
 export function openTrendweb() {
   if (gs.menuOpen) return;
 
@@ -105,7 +101,6 @@ export function openTrendweb() {
   setEButtonEnabled(false)
 }
 
-// closeTrendweb fonksiyonunu düzenle:
 export function closeTrendweb() {
   gs.menuOpen = false;
   trendwebOverlay.classList.remove('active');
@@ -195,7 +190,6 @@ export function openPosta() {
   if (!gs.showPostaMenu) return;
 
   postaOverlay.classList.add('active');
-  // E butonunu geçici olarak devre dışı bırak
   setEButtonEnabled(false)
   renderPosta(postaMainDiv);
 }
@@ -233,7 +227,6 @@ export function openGardenMenu() {
   setEButtonEnabled(false)
 }
 
-// closeTrendweb fonksiyonunu düzenle:
 export function closeGardenMenu() {
   gs.gardenMenuOpen = false;
   gardenOverlay.classList.remove('active');

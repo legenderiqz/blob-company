@@ -9,15 +9,13 @@ import { t } from '../core/localization.js';
 import { addTimeout } from './timeout.js';
 
 // =========================
-// AKSİYON FONKSİYONLARI (AYNEN DURUYOR)
+// AKSİYON FONKSİYONLARI
 // =========================
 
-// 1. PC aksiyonu
 function handlePC() {
   setTimeout(() => openTrendweb(), CONFIG.INPUT_LOCK);
 }
 
-// 2. Tuvalet aksiyonu
 function handlePoop(obj) {
   gs.nearCooldown = 1;
   obj.stage--;
@@ -39,14 +37,12 @@ function removeObject(obj) {
   }
 }
 
-// 3. Para çantası aksiyonu
 function handleMoneyBag(obj) {
   obj.visible = false;
   obj.active = false;
   gs.cash += gs.cashIncrease * 5n;
 }
 
-// 4. Bahçe kapısı aksiyonu
 function handleBahceKapisi() {
   if (gs.currentRoom === 'house') {
     gs.currentRoom = 'garden';
@@ -59,13 +55,11 @@ function handleBahceKapisi() {
   }
 }
 
-// 5. Posta aksiyonu
 function handlePosta() {
   gs.showPostaMenu = true;
   openPosta();
 }
 
-// 6. Parsel aksiyonu
 function handleParsel(obj) {
   gs.currentPlot = obj;
 
@@ -288,7 +282,6 @@ function isObjectNear(obj, player) {
   const config = OBJECT_CONFIGS[obj.type];
   if (!config) return false;
   
-  // Tuvalet için visible/active kontrolleri yapılmıyor
   if (obj.type !== 'toilet') {
     if (obj.visible !== config.required.visible) return false;
     if (obj.active !== config.required.active) return false;
@@ -453,7 +446,6 @@ export function checkNear(dt) {
   
   updateInteractionGuide();
   
-  // TOYBOX ÖZEL DURUMU: E tuşuna gerek yok, direkt çalıştır
   if (
     gs.selectedTarget?.type === 'object' &&
     gs.selectedTarget.object.type === 'toybox'
@@ -530,7 +522,6 @@ function canDropItem() {
     gs.player.y + Math.floor(gs.player.size / 3);
 
 
-  // Aynı yerde item varsa bırakamaz
   for (const obj of gs.objects) {
     if (obj.room !== gs.currentRoom) continue;
     if (obj.type !== 'item') continue;
@@ -544,7 +535,6 @@ function canDropItem() {
   }
 
 
-  // Collidable objenin içine item bırakamaz
   const collision = getCollision(
     dropX,
     dropY,

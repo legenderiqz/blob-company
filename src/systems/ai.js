@@ -382,10 +382,6 @@ export function setWanderTarget(x, y, e = gs.blob) {
 
   e.tx = x;
   e.ty = y;
-
-  console.log(
-    `Wander target set to (${x}, ${y})`
-  );
 }
 
 /* =========================

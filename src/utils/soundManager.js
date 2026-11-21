@@ -133,7 +133,6 @@ export function initSounds() {
   loadSound('purchase', './assets/audio/purchase.mp3');
   loadSound('pop', './assets/audio/pop.mp3');
   loadSound('success', './assets/audio/success.wav');
-
-  // loadSound('day', './assets/audio/day.mp3');
-  // loadSound('night', './assets/audio/night.mp3');
+  loadSound('day', './assets/audio/day.mp3');
+  loadSound('night', './assets/audio/night.mp3');
 }

@@ -244,7 +244,6 @@ function drawChair(ctx, obj) {
 }
 
 function drawFurnace(ctx, obj) {
-  // 1. Fırını çiz
   let img;
   if (!gs.furnaceCooking) {
     img = getImage('furnace');
@@ -259,7 +258,6 @@ function drawFurnace(ctx, obj) {
     obj.height
   );
   
-  // 2. Fırındaki item'ları çiz (yukarıdan aşağıya)
   if (gs.furnaceItems.length > 0 && !gs.furnaceCooking) {
     const itemCount = gs.furnaceItems.length;
     const spacing = obj.height / (itemCount + 1); // Eşit aralık
@@ -268,7 +266,6 @@ function drawFurnace(ctx, obj) {
       const itemImg = getImage(item);
       const size = gs.itemSize * 0.8;
       
-      // Y pozisyonu yukarıdan aşağıya doğru sıralı
       const yPos = obj.y - gs.camera.y + (spacing * (index + 1)) - size/2;
       const xPos = obj.x - gs.camera.x + (obj.width/2) - size/2;
       
@@ -282,7 +279,6 @@ function drawFurnace(ctx, obj) {
     });
   }
   
-  // 3. Pişen yemeği çiz
   if (gs.furnaceFood && gs.furnaceFinish) {
     const foodImg = getImage(gs.furnaceFood);
     const size = gs.itemSize * 1.5;
@@ -298,7 +294,6 @@ function drawFurnace(ctx, obj) {
       size
     );
   }
-  // 4. Fırın pişerken efekt çiz
   if (gs.furnaceCooking) {
     ctx.save();
     ctx.globalAlpha = 0.2;
@@ -340,11 +335,9 @@ function drawClock(ctx, obj) {
   const w = obj.width;
   const h = obj.height;
 
-  // dış çerçeve
   ctx.fillStyle = '#222';
   ctx.fillRect(x, y, w, h);
 
-  // iç ekran
   ctx.fillStyle =
     gs.currentDayStage === 'morning'
       ? '#9de7ff'
@@ -352,7 +345,6 @@ function drawClock(ctx, obj) {
 
   ctx.fillRect(x + 3, y + 3, w - 6, h - 6);
 
-  // küçük durum ışığı
   ctx.fillStyle =
     gs.currentDayStage === 'morning'
       ? '#ffdd44'
@@ -519,7 +511,6 @@ function drawHandItem(ctx) {
 }
 
 function drawStain(ctx) {
-  // Stain unlock edilmemiş veya aktif değilse çizme
   if (!gs.stainUnlocked || !gs.stain.active) return;
   
   const s = gs.stain;
@@ -548,7 +539,6 @@ function drawStain(ctx) {
 }
 
 function drawDoze(ctx) {
-  // Stain unlock edilmemiş veya aktif değilse çizme
   if (!gs.dozeUnlocked || !gs.doze.active) return;
   
   const d = gs.doze;
@@ -654,9 +644,7 @@ export function drawBlobText(ctx, b, x, y) {
   ctx.restore();
 }
 
-// Hunger değerine göre renk döndüren fonksiyon
 function getHungerColor(hunger) {
-  // Renkleri canvas için hex kodlarıyla tanımlayalım
   let HC = CONFIG.HUNGER_COLORS;
 
   if (hunger >= 100) return HC.HIGH;

@@ -8,7 +8,13 @@ import { updateTime } from './systems/time.js';
 import { updatePlants } from './systems/plants.js';
 import { checkNear } from './systems/near.js';
 import { saveGame } from './systems/save.js';
-import { playSound } from './utils/soundManager.js';
+import {
+  playSound,
+  stopCurrentMusic,
+  getCurrentMusic,
+  getCurrentMusicName,
+  playMusic
+} from './utils/soundManager.js';
 import { 
   addInterval,
   updateTimeouts,
@@ -42,7 +48,6 @@ export function updateAutoSave() {
 
 export function initStateUpdates(canvas) {
   setPositions(canvas);
-  // Eksik state değişkenlerini başlat
   if (gs.inputLock === undefined) gs.inputLock = 0;
   if (gs.menuOpen === undefined) gs.menuOpen = false;
   
@@ -115,31 +120,28 @@ export function update() {
   updateTimeouts(dt);
   updateIntervals(dt);
   updateFloatingTexts(dt);
-  //updateAmbientMusic()
+  updateAmbientMusic()
   
   gs.keys.ePressed = false;
   gs.keys.qPressed = false;
 }
 
-/*
-export function updateAmbientMusic() {
-  if (gs.currentRoom !== 'garden') {
-    stopCurrentMusic();
+export function updateAmbientMusic(fromUserGesture = false) {
+  const targetMusic = gs.currentRoom === 'garden'
+    ? gs.currentDayStage === 'morning' ? 'day' : 'night'
+    : gs.speakerOn ? 'speakerMusic' : null;
+
+  if (!targetMusic) {
+    if (getCurrentMusic()) stopCurrentMusic();
     return;
   }
 
-  const targetMusic =
-    gs.currentDayStage === 'morning'
-      ? 'day'
-      : 'night';
-
-  if (getCurrentMusic()?.dataset?.name === targetMusic) {
-    return;
+  if (getCurrentMusicName() === targetMusic) {
+    if (!getCurrentMusic()?.paused || !fromUserGesture) return;
   }
 
   playMusic(targetMusic, 0.3);
 }
-*/
 
 export function updateDeltaTime() {
   const now = performance.now();

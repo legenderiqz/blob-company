@@ -1,10 +1,8 @@
 import { gs } from './core/state.js';
-import { canvasClicked } from './update.js';
+import { canvasClicked, updateAmbientMusic } from './update.js';
 import { getCanvas } from './core/dom.js';
 import {
   playSound,
-  playMusic,
-  currentMusic,
   pauseMusic,
   resumeMusic,
 } from './utils/soundManager.js';
@@ -125,9 +123,7 @@ export function canvasInteractions() {
 }
 
 document.addEventListener('click', (e) => {
-  if (gs.speakerOn && !currentMusic) {
-    playMusic('speakerMusic');
-  }
+  updateAmbientMusic(true);
   if (!gs.soundEnabled) return;
   const btn = e.target.closest('button');
   if (!btn) return;
