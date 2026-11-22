@@ -4,6 +4,7 @@ A small browser game about taking care of a Blob pet and somehow turning that in
 
 ## Play Now
 Pages Link: [click here to play](https://legenderiqz.github.io/blob-company/)
+
 Itch.io: [click here to see](https://legenderiqz.itch.io/blob-company/)
 
 ## About
