@@ -1,19 +1,20 @@
 # Blob Company
 
-A small browser game about taking care of a blob pet and somehow turning that into a business.
+A small browser game about taking care of a Blob pet and somehow turning that into a business.
 
 ## Play Now
 Pages Link: [click here to play](https://legenderiqz.github.io/blob-company/)
+Itch.io: [click here to see](https://legenderiqz.itch.io/blob-company/)
 
 ## About
 
-Blob Company is a mobile-friendly browser game where you take care of your blob, earn money, buy upgrades, and gradually expand your little operation.
+Blob Company is a mobile-friendly browser game where you take care of your Blob, earn money, buy upgrades, and gradually expand your little operation.
 
 What starts with feeding, cleaning and taking care of a blob eventually grows into something much bigger.
 
 ## Features
 
-- 🟢 Take care of your blob
+- 🟢 Take care of your Blob
 - 💰 Earn and manage money
 - 🏠 Upgrade your home
 - 🌱 Grow plants in the garden
@@ -25,9 +26,9 @@ What starts with feeding, cleaning and taking care of a blob eventually grows in
 
 ## How to Play
 
-Take care of your blob and interact with the world around you.
+Take care of your Blob and interact with the world around you.
 
-Earn money, buy upgrades, discover new systems and expand your operation.
+Earn money with clicking, buy upgrades, discover new systems and expand your operation.
 
 Try not to let everything descend into chaos.
 
