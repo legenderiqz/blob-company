@@ -35,10 +35,15 @@ let tutorialHudTitle;
 let tutorialHudBody;
 let tutorialHudSkip;
 let tutorialHudDone;
+let gameOverOverlay;
+let gameOverTitle;
+let gameOverMessage;
+let gameOverRestart;
 let tutorialStep = 0;
 let tutorialGuided = false;
 let tutorialAdvancing = false;
 let tutorialAdvanceTimeout;
+let tutorialReplay = false;
 const TUTORIAL_VERSION = 2;
 
 export function initUI() {
@@ -89,6 +94,12 @@ export function initUI() {
   tutorialHudBody = document.getElementById('tutorial-hud-body');
   tutorialHudSkip = document.getElementById('tutorial-guided-skip');
   tutorialHudDone = document.getElementById('tutorial-guided-done');
+  gameOverOverlay = document.getElementById('game-over-overlay');
+  gameOverTitle = document.getElementById('game-over-title');
+  gameOverMessage = document.getElementById('game-over-message');
+  gameOverRestart = document.getElementById('game-over-restart');
+  gameOverRestart.textContent = t('gameOver.restart');
+  gameOverRestart.onclick = resetGame;
   const tutorialSkip = document.getElementById('tutorial-skip');
   tutorialTitle.textContent = t('tutorial.intro.title');
   tutorialBody.textContent = t('tutorial.intro.body');
@@ -105,6 +116,7 @@ export function initUI() {
   });
   document.addEventListener('pointermove', handleTutorialPointerMove);
   document.addEventListener('pointerdown', handleTutorialPointerDown);
+  window.addEventListener('game-reset', handleGameReset);
   
   cashSpan = document.getElementById('cashSpan');
   
@@ -127,12 +139,25 @@ export function initTrendweb() {
   renderTrendweb(trendwebContent);
 }
 
-export function startTutorial() {
+export function startTutorial({ replay = false } = {}) {
   if (!tutorialOverlay) return;
 
+  tutorialReplay = replay;
+  tutorialStep = 0;
+  tutorialGuided = false;
+  if (replay) {
+    const actions = gs.tutorialActions ?? {};
+    gs.tutorialActions = {
+      buyFood: actions.buyFood,
+      fillBowl: actions.fillBowl,
+      cleanPoop: actions.cleanPoop
+    };
+  }
+  gs.tutorialSeen = true;
   gs.tutorialActive = true;
   gs.menuOpen = true;
   tutorialOverlay.classList.add('active');
+  saveGame();
   tutorialNext.focus();
 }
 
@@ -168,8 +193,10 @@ function advanceTutorial() {
 
   if (tutorialStep >= t('tutorial.steps').length) {
     gs.tutorialCompleted = true;
+    gs.tutorialSeen = true;
     gs.tutorialVersion = TUTORIAL_VERSION;
     gs.firstTry = false;
+    tutorialReplay = false;
     saveGame();
   }
 
@@ -178,7 +205,26 @@ function advanceTutorial() {
 
 function renderTutorialHint() {
   const steps = t('tutorial.steps');
+  while (
+    tutorialStep < steps.length &&
+    isTutorialActionSatisfied(steps[tutorialStep].action)
+  ) {
+    tutorialStep++;
+  }
+
   const complete = tutorialStep >= steps.length;
+  if (
+    complete &&
+    (!gs.tutorialCompleted || gs.tutorialVersion !== TUTORIAL_VERSION)
+  ) {
+    gs.tutorialCompleted = true;
+    gs.tutorialSeen = true;
+    gs.tutorialVersion = TUTORIAL_VERSION;
+    gs.firstTry = false;
+    tutorialReplay = false;
+    saveGame();
+  }
+
   const content = complete
     ? t('tutorial.complete')
     : steps[tutorialStep];
@@ -205,10 +251,29 @@ function finishTutorial() {
   gs.menuOpen = false;
   gs.firstTry = false;
   gs.tutorialCompleted = true;
+  gs.tutorialSeen = true;
   gs.tutorialVersion = TUTORIAL_VERSION;
+  tutorialReplay = false;
   tutorialOverlay.classList.remove('active');
   tutorialHud.classList.remove('active');
   saveGame();
+}
+
+function isTutorialActionSatisfied(action) {
+  if (gs.tutorialActions?.[action]) return true;
+
+  switch (action) {
+    case 'earnTen':
+      return gs.cash >= 10n;
+    case 'buyFood':
+      return gs.handItem === 'blob_food' || gs.otoYemek;
+    case 'fillBowl':
+      return gs.otoYemek || (tutorialReplay && Boolean(gs.bowlFood));
+    case 'cleanPoop':
+      return gs.otoGubre;
+    default:
+      return false;
+  }
 }
 
 function isInsideTutorialHud(x, y) {
@@ -318,10 +383,38 @@ export function updateCashUI() {
 }
 
 export function endGame(reason) {
-  if (!CONFIG.GOD_MODE) {
-    resetGame();
-    alert(t(reason));
+  if (CONFIG.GOD_MODE || gs.gameOver) return;
+
+  gs.gameOver = true;
+  gs.gameOverReason = reason;
+  gs.paused = true;
+  gs.menuOpen = true;
+  gs.tutorialActive = false;
+  gameOverTitle.textContent = t('gameOver.title');
+  gameOverMessage.textContent = t(reason);
+  gameOverOverlay.classList.add('active');
+  gameOverRestart.focus();
+  saveGame();
+}
+
+function handleGameReset() {
+  if (tutorialAdvanceTimeout) {
+    clearTimeout(tutorialAdvanceTimeout);
+    tutorialAdvanceTimeout = null;
   }
+
+  tutorialGuided = false;
+  tutorialAdvancing = false;
+  tutorialReplay = false;
+  tutorialOverlay?.classList.remove('active');
+  tutorialHud?.classList.remove('active', 'completed', 'faded');
+  uiRoot?.querySelectorAll('[id$="-overlay"]').forEach(overlay => {
+    overlay.classList.remove('active');
+  });
+  applyEPosChange();
+  applyQPosChange();
+  initTrendweb();
+  renderGarden(gardenMainDiv);
 }
 
 export function renderPosta(mainDiv) {

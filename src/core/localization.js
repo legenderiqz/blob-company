@@ -1,8 +1,9 @@
 import tr from '../data/languages/tr.js';
 import en from '../data/languages/en.js';
+import es from '../data/languages/es.js';
 import { gs } from './state.js';
 
-export const languages = { tr, en };
+export const languages = { tr, en, es };
 
 export function setLanguage(lang) {
   gs.currentLang = lang;

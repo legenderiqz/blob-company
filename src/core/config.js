@@ -15,7 +15,7 @@ export const CONFIG = {
   INPUT_LOCK: 200,
 
   NEWS_TIME: 4,
-  SAVE_TIME: 4000,
+  SAVE_TIME: 4,
 
   MAX_STATE_TIME: 15, //saniye
 

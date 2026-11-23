@@ -3,6 +3,7 @@ import { gs, GameObject} from '../core/state.js';
 import { CONFIG } from '../core/config.js';
 import { endGame } from '../ui.js';
 import { EAT_EFFECTS } from './food.js';
+import { notifyTutorialAction } from './tutorial.js';
 
 /* =========================
    HELPERS
@@ -67,6 +68,7 @@ function tryPlay(e, dt) {
 ========================= */
 
 export function updateAI(entity, dt) {
+  if (gs.gameOver) return;
   if (!entity?.ai) return;
   if (!entity.active) return;
   entity.stateTimer ??= 0;
@@ -96,7 +98,10 @@ export function updateAI(entity, dt) {
   
   if (entity.hunger < 0) {
     entity.hunger = 0;
-    endGame('deathHunger');
+    if (entity.type === 'blob') {
+      endGame('deathHunger');
+      return;
+    }
   }
   
   if (
@@ -434,7 +439,10 @@ function handleEat(e) {
     return;
   }
   
-  if (gs.otoYemek && !gs.bowlFood) gs.bowlFood = 'blob_food';
+  if (gs.otoYemek && !gs.bowlFood) {
+    gs.bowlFood = 'blob_food';
+    notifyTutorialAction('fillBowl');
+  }
     
   if (!gs.bowlFood) return;
   
@@ -481,6 +489,7 @@ function handlePoop(e, dt) {
   if (gs.otoGubre) {
     gs.toiletFull = false;
     gs.cash += gs.poopIncome;
+    notifyTutorialAction('cleanPoop');
   }
   
   if (!gs.toiletFull) {

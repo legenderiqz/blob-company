@@ -3,6 +3,10 @@ export default {
   upgOwned: 'Alındı',
   deathHunger: 'blob açlıktan üldü şimdi baştan başla lol',
   deathPoop: 'blob pislikten hastalandı üldü şimdi baştan başla lol',
+  gameOver: {
+    title: 'Oyun Bitti',
+    restart: 'Yeni Oyuna Başla',
+  },
   noMails: 'Posta Yok.',
   rejoin: 'Tekrar hoşgeldin!',
   day: 'Gün',
@@ -257,8 +261,7 @@ export default {
   mails: {
     m1: `Acının kendisi çok önemlidir, acının peşinden gidilir ama her zaman bazı büyük emekler ve acılar aranır. Çünkü en küçük detaylara kadar inildiğinde, kimse hiçbir çaba sarf etmeden sadece bir şeyler elde etmek için iş yapmaz. Bir hata yapmak ya da acı çekmek yerine, zevk içinde olmanın bir yolunu bulmak ister. Ancak acı veren durumlardan kaçınmak için bazen büyük sorumluluklar almak gerekir. <br><br>Şu anda önümüzde duran engelleri aşmak için harekete geçmeliyiz. Ancak geçmişteki tecrübelerimiz bize gösteriyor ki, her kolay yol bizi doğru sonuca ulaştırmaz. Bu yüzden planlarımızı yaparken en ince ayrıntısına kadar düşünmeli, adımlarımızı dikkatli atmalıyız. Zaman akıp giderken fırsatları kaçırmamak için her an tetikte olmak ve doğru anı beklemek büyük önem taşır. <br><br> Gelecekte ne olacağını kestirmek zor olsa da, bugünden atılacak sağlam temeller bizi başarıya taşıyacaktır. Zorluklar karşısında yılmadan, sürekli kendimizi geliştirerek ilerlemeliyiz. Hayatın getirdiği sürprizlere karşı hazırlıklı olmak, kriz anlarını en az hasarla atlatmamızı sağlar. Unutmamalıyız ki her zor dönemin arkasından mutlaka yeni bir doğuş ve aydınlık gelir. <br><br> Toplum içindeki rollerimizi iyi belirlemeli, çevremizdeki insanlarla olan ilişkilerimizi saygı ve sevgi çerçevesinde yürütmeliyiz. Başarıya giden yolda yalnız yürümek yerine, güçlü bir ekiple ortak hedeflere kilitlenmek her zaman daha büyük sonuçlar doğurur. Paylaşılan vizyonlar, en karmaşık projelerin bile kolayca hayata geçmesini sağlar. <br><br> Sonuç olarak, hayatın bize sunduğu tüm imkanları en iyi şekilde değerlendirmek bizim elimizdedir. Karşımıza çıkan engelleri birer bariyer olarak değil, aşılması gereken birer basamak olarak görmeliyiz. Ancak bu bakış açısıyla hem bireysel hem de toplumsal olarak kalıcı bir başarı yakalayabilir ve geleceğe güvenle bakabiliriz. <br><br> Fakat bu durumun arkasındaki gerçekleri tam olarak anlamak gerekir. Hatalardan ders çıkarmak, aynı yanlışları tekrar etmemizi engeller. Bilgi ve tecrübeyi harmanlayarak ilerlediğimizde, önümüzdeki sisli yollar birer birer aydınlanacaktır. Her adımda daha kararlı, her kararda daha net olmak bizi hedefimize doğrudan ulaştıracaktır. <br><br> Bazen en karmaşık sorunların çözümü, en basit detaylarda gizlidir. Detayları gözden kaçırmadan, büyük resmi de her zaman akılda tutmak gerekir. Bu dengeyi kurabildiğimizde, karşılaştığımız krizleri birer fırsata çevirme şansımız da o kadar artacaktır. Sabır ve kararlılık, bu sürecin en büyük anahtarıdır. <br><br> Yolculuğun kendisi, varılacak hedeften çok daha öğreticidir. Bu süreçte kazanılan dostluklar, edinilen deneyimler ve aşılan zorluklar bizi biz yapan değerlerdir. Kendimize olan inancımızı kaybetmeden, her gün bir önceki günden daha iyi olmak için çabalamalıyız. Değişim, önce kendi zihnimizde başlar. <br><br> Zamanın değerini bilmek, onu en verimli şekilde kullanmayı gerektirir. Boşa harcanan her an, gelecekteki potansiyelimizden çalınmış bir parçadır. Bu yüzden planlı hareket etmek, öncelikleri doğru belirlemek ve enerjimizi bizi gerçekten büyütecek işlere harcamak en doğru stratejidir. <br><br> Son olarak, her başarının arkasında görünmeyen büyük bir emek ordusu olduğunu unutmamalıyız. Birlikte üretmek, paylaşılan sevinçleri büyütürken zorlukları küçültür. Geleceği inşa ederken, geçmişin köklü mirasından güç almalı ve her zaman daha adil, daha üretken bir dünya için çalışmaya devam etmeliyiz.`,
     m2: `patates kızartması`,
-    m3: `(Bu metin oyun içi mizah amaçlıdır.) <br><br>
-      Sayın Yetkili, <br><br>
+    m3: `Sayın Yetkili, <br><br>
       İşbu bildirim, müvekkilim Blob adına, ilgili oyuncunun eylem ve işlemlerine ilişkin resmî şikâyet ve ihtar mahiyetinde düzenlenmiştir.<br><br>
       Müvekkilim, son dönemde anılan oyuncu tarafından sistematik ve süreklilik arz eden aşağıdaki müdahalelere maruz bırakılmıştır: <br><br>
       1- Fiziksel bütünlüğünün ihlali kapsamında, sürekli tıklanmak suretiyle ani enerji artış ve düşüşlerine zorlanması, <br>
@@ -269,7 +272,7 @@ export default {
       Anılan eylemler neticesinde müvekkilimde stres seviyesinde artış, temel ihtiyaç dengesizlikleri ve genel yaşam kalitesinde belirgin düşüş tespit edilmiştir. <br><br>
       Buna ek olarak, oyuncunun müvekkilimin rızası dışında ekonomik kazanç elde ettiği ve söz konusu kazanç üzerinde tek taraflı tasarrufta bulunduğu anlaşılmıştır. <br><br>
       Bu nedenlerle; ilgili oyuncunun davranışlarının “oyun içi etik kullanım sınırları” bakımından ivedilikle yeniden değerlendirilmesini, gerekli görülmesi hâlinde kısıtlayıcı tedbirlerin uygulanmasını ve müvekkilimin hak ve menfaatlerinin korunmasını talep ederiz. <br><br>
-      Saygılarımızla, Blob Hukuk Temsilciliği <br> (İmza: 𝓑𝓵𝓸𝓫`,
+      Saygılarımızla, Blob Hukuk Temsilciliği <br> (İmza: 𝓑𝓵𝓸𝓫)`,
     m4: `Ay yanlış adrese attım kanka geri alsana şunu yanlış attım`,
     m5: `posta kutunu yedim`,
     m6: `Fark ettin mi ikiz? son zamanlarda mahalledeki güvercinlerin sayısı arttı ikiz. çok şüpheli davranıyorlar ikiz.`,
@@ -282,9 +285,10 @@ export default {
     m13: `I like biggers, chiggers, diggers, jiggers, liggers, riggers, sniffers, triggers, outriggers, rejiggers, golddiggers, gravediggers, hairtriggers, thimbleriggers`,
     m14: `güncel araştırmada 100 kişiye evlerinin güvenlik durumu soruldu %97si "çık lan evimden" cevabını verdi`,
     m15: `komik şaka yapcam 6 neden 7'den korkuyormuş çünkü 789`,
-    m16: `Bana oyunum için detaylı ve güzel bir posta sistemi yap. Her oyun gününün başında rastgele bir posta seçilip gösterilsin. İçine de komik postalar yaz.`,
-    m17: `AI reading the script`,
+    m16: `Bana oyunum için detaylı ve güzel bir posta sistemi yap. Her oyun gününün başında rastgele bir posta seçilip gösterilsin. İçine de komik postalar yaz. Hata yapma.`,
+    m17: `AI promptumu okuyor:`,
     m18: `merhaba dünya`,
+    m19: 'FatalError: Cannot find "blob" at line 27:47. Error Message: game_state returned NaN and save file corrupted. Unexpected token "undefined" while parsing blob_data. Attempted to recover from backup but backup is also corrupted. Expected Blob, got null. Please try again. If the problem persists, please do not contact support because support returned NaN.',
   },
   mailCame: 'Posta geldi!',
   birthday: "Blob'un doğum günü! Şu kadar kazandın: $",
@@ -305,6 +309,7 @@ export default {
     qPosLeft: 'Solda',
     qPosRight: 'Sağda',
     fullScreen: 'Oto Tam Ekran',
+    replayTutorial: 'Öğreticiyi Yeniden Oynat',
     confirmReset: 'Oyunu sıfırlamak istediğine emin misin?',
   },
 

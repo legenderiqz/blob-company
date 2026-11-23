@@ -151,7 +151,7 @@ function createSettingsHTML() {
 
           <button id="auto-save"></button>
 
-          <button id="lang-btn"></button>
+          <select id="lang-select"></select>
 
           <button id="debug-toggle"></button>
 
@@ -160,6 +160,8 @@ function createSettingsHTML() {
           <button id="q-pos-toggle"></button>
 
           <button id="fullScreen-toggle"></button>
+
+          <button id="tutorial-replay"></button>
           
           <hr>
 
@@ -216,5 +218,12 @@ function createTutorialHTML() {
       <p id="tutorial-hud-body"></p>
       <button id="tutorial-guided-done" type="button"></button>
     </aside>
+    <div id="game-over-overlay" role="dialog" aria-modal="true" aria-labelledby="game-over-title" aria-describedby="game-over-message">
+      <section id="game-over-card">
+        <h1 id="game-over-title"></h1>
+        <p id="game-over-message"></p>
+        <button id="game-over-restart" type="button"></button>
+      </section>
+    </div>
   `;
 }

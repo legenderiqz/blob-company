@@ -3,6 +3,10 @@ export default {
   upgOwned: 'Owned',
   deathHunger: 'blob died of hungy now start over lol',
   deathPoop: 'blob became ill from pollution and died now start over lol',
+  gameOver: {
+    title: 'Game Over',
+    restart: 'Start a New Game',
+  },
   noMails: 'No Mail.',
   rejoin: 'Welcome back!',
   day: 'Day',
@@ -259,7 +263,7 @@ export default {
   mails: {
     m1: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br><br>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.<br><br>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.<br><br>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.<br><br>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.<br><br>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.<br><br>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.<br><br>Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.<br><br>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.<br><br>Omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.<br><br>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.`,
     m2: 'french fries',
-    m3: `(This message is intended as a joke.)<br><br>Dear Sir/Madam,<br><br>This notice is submitted on behalf of my client, Blob, as a formal complaint regarding the actions of the player.<br><br>My client has recently been subjected to the following:<br><br>1- Excessive clicking resulting in emotional damage.<br>2- Reckless manipulation of his diet.<br>3- Repeated delays in bathroom-related operations.<br>4- Unlawful interference with sleeping hours.<br>5- Long periods of neglect causing psychological distress.<br><br>As a result, my client has suffered increased stress levels, unstable basic needs, and a noticeable decline in quality of life.<br><br>Furthermore, the player has been generating financial profit from my client without consent.<br><br>We therefore request immediate review of the player's behavior and any necessary sanctions.<br><br>Sincerely,<br>Blob Legal Department<br><br>(Signature: 𝓑𝓵𝓸𝓫)`,
+    m3: `Dear Sir/Madam,<br><br>This notice is submitted on behalf of my client, Blob, as a formal complaint regarding the actions of the player.<br><br>My client has recently been subjected to the following:<br><br>1- Excessive clicking resulting in emotional damage.<br>2- Reckless manipulation of his diet.<br>3- Repeated delays in bathroom-related operations.<br>4- Unlawful interference with sleeping hours.<br>5- Long periods of neglect causing psychological distress.<br><br>As a result, my client has suffered increased stress levels, unstable basic needs, and a noticeable decline in quality of life.<br><br>Furthermore, the player has been generating financial profit from my client without consent.<br><br>We therefore request immediate review of the player's behavior and any necessary sanctions.<br><br>Sincerely,<br>Blob Legal Department<br><br>(Signature: 𝓑𝓵𝓸𝓫)`,
     m4: 'oops wrong address son can you send this back',
     m5: 'i ate your mailbox',
     m6: 'Have you noticed, twin? There are way more pigeons around lately, twin. They are acting extremely suspicious, twin.',
@@ -275,6 +279,7 @@ export default {
     m16: 'Make me a detailed and cool mail system for my game. Every game day a random letter should appear. Also fill it with silly letters.',
     m17: 'AI reading the script',
     m18: 'hello world',
+    m19: 'FatalError: Cannot find "blob" at line 27:47. Error Message: game_state returned NaN and save file corrupted. Unexpected token "undefined" while parsing blob_data. Attempted to recover from backup but backup is also corrupted. Expected Blob, got null. Please try again. If the problem persists, please do not contact support because support returned NaN.',
   },
 
   mailCame: 'Mail arrived!',
@@ -296,6 +301,7 @@ export default {
     qPosLeft: 'Left',
     qPosRight: 'Right',
     fullScreen: 'Auto Fullscreen',
+    replayTutorial: 'Replay Tutorial',
     confirmReset: 'Are you sure you want to reset the game?',
   },
 

@@ -1,8 +1,12 @@
 import { gs } from '../core/state.js';
-import { saveGame, deleteSave } from './save.js';
+import { saveGame } from './save.js';
 import { updateAutoSave } from '../update.js';
-import { t, setLanguage, languages } from '../core/localization.js';
-import { applyEPosChange, applyQPosChange } from '../ui.js';
+import { t, languages } from '../core/localization.js';
+import {
+  applyEPosChange,
+  applyQPosChange,
+  startTutorial
+} from '../ui.js';
 import { resetGame } from '../utils/resetGame.js';
 
 export function initSettings() {
@@ -17,8 +21,10 @@ export function initSettings() {
   const setTitle = document.getElementById('set-title');
   const ePos = document.getElementById('e-pos-toggle');
   const qPos = document.getElementById('q-pos-toggle');
-  const langBtn = document.getElementById('lang-btn');
-  const fullScreen = document.getElementById('fullScreen-toggle')
+  const langSelect = document.getElementById('lang-select');
+  const fullScreen = document.getElementById('fullScreen-toggle');
+  const tutorialReplayBtn =
+    document.getElementById('tutorial-replay');
   
   btn.onclick = () => {
     overlay.classList.add('active');
@@ -40,10 +46,16 @@ export function initSettings() {
       t('settings.debug') + ': ' +
       (gs.debug ? t('settings.on') : t('settings.off'));
     
-    langBtn.textContent =
-      t('settings.language') +
-      ': ' +
-      t('languageName');
+    langSelect.replaceChildren(
+      ...Object.entries(languages).map(([code, language]) => {
+        const option = document.createElement('option');
+        option.value = code;
+        option.textContent =
+          `${language.settings.language}: ${language.languageName}`;
+        return option;
+      })
+    );
+    langSelect.value = gs.currentLang;
       
     ePos.textContent =
       t('settings.ePos') +
@@ -62,6 +74,8 @@ export function initSettings() {
       
     resetBtn.textContent = 
       t('settings.reset');
+    tutorialReplayBtn.textContent =
+      t('settings.replayTutorial');
   };
 
 
@@ -74,7 +88,8 @@ export function initSettings() {
 
   autoSaveBtn.onclick = () => {
     gs.autoSave = !gs.autoSave;
-    updateAutoSave()
+    updateAutoSave();
+    saveGame();
 
     autoSaveBtn.textContent =
       t('settings.autoSave') + ': ' +
@@ -84,6 +99,7 @@ export function initSettings() {
 
   soundBtn.onclick = () => {
     gs.soundEnabled = !gs.soundEnabled;
+    saveGame();
 
     soundBtn.textContent =
       t('settings.sound') + ': ' +
@@ -92,6 +108,7 @@ export function initSettings() {
   
   debugBtn.onclick = () => {
     gs.debug = !gs.debug;
+    saveGame();
 
     debugBtn.textContent =
       t('settings.debug') + ': ' +
@@ -99,13 +116,8 @@ export function initSettings() {
     
   };
   
-  langBtn.onclick = () => {
-    const languageKeys = Object.keys(languages);
-    const index = languageKeys.indexOf(gs.currentLang);
-  
-    gs.currentLang =
-      languageKeys[(index + 1) % languageKeys.length];
-    
+  langSelect.onchange = () => {
+    gs.currentLang = langSelect.value;
     localStorage.setItem('preferred-language', gs.currentLang);
     saveGame();
     location.reload();
@@ -113,7 +125,8 @@ export function initSettings() {
   
   ePos.onclick = () => {
     gs.ePosRight = !gs.ePosRight;
-    applyEPosChange()
+    applyEPosChange();
+    saveGame();
     ePos.textContent =
       t('settings.ePos') + ': ' + 
       (gs.ePosRight ? t('settings.ePosRight') : t('settings.ePosLeft'));
@@ -121,7 +134,8 @@ export function initSettings() {
   
   qPos.onclick = () => {
     gs.qPosRight = !gs.qPosRight;
-    applyQPosChange()
+    applyQPosChange();
+    saveGame();
     qPos.textContent =
       t('settings.qPos') + ': ' + 
       (gs.qPosRight ? t('settings.qPosRight') : t('settings.qPosLeft'));
@@ -129,9 +143,16 @@ export function initSettings() {
 
   fullScreen.onclick = () => {
     gs.autoFullscreen = !gs.autoFullscreen;
+    saveGame();
     fullScreen.textContent =
       t('settings.fullScreen') + ': ' + 
       (gs.autoFullscreen ? t('settings.on') : t('settings.off'));
+  };
+
+  tutorialReplayBtn.onclick = () => {
+    overlay.classList.remove('active');
+    gs.menuOpen = false;
+    startTutorial({ replay: true });
   };
 
   resetBtn.onclick = () => {

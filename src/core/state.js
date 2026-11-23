@@ -44,7 +44,6 @@ const initialMainAndFps = () => ({
 });
 
 const initialEconomy = () => ({
-// FIXME: PROD alırken değiştir
   cash: 0n, 
   cashIncrease: 1n,  
   cashBoost: 0n,
@@ -58,7 +57,6 @@ const initialEconomy = () => ({
 });
 
 const initialTimeSystem = () => ({
-// FIXME: PROD alırken değiştir
   dayCD: 90, 
   time: 0,
   day: 1,
@@ -73,7 +71,11 @@ const initialMechanics = () => ({
   currentLang: getInitialLanguage(),
   tutorialActive: false,
   tutorialCompleted: false,
+  tutorialSeen: false,
   tutorialVersion: 0,
+  tutorialActions: {},
+  gameOver: false,
+  gameOverReason: null,
 
   floatingTexts: [],
 

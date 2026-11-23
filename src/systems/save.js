@@ -23,6 +23,8 @@ const IGNORE_KEYS = [
   'showPostaMenu',
   'menuOpen',
   'tutorialActive',
+  'paused',
+  'gameOver',
   'aiState',
 
   // Geçici oyun durumu
@@ -134,6 +136,10 @@ export function loadGame() {
         gs[key] = value;
       }
     }
+
+    gs.tutorialSeen ||= gs.tutorialCompleted ||
+      gs.tutorialVersion > 0;
+    gs.tutorialActions ??= {};
     
     gs.activePlots = gs.objects.filter(
       o => o.type === 'parsel' &&

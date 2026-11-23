@@ -1,6 +1,6 @@
 import { gs } from './core/state.js';
 import { CONFIG } from './core/config.js';
-import { startTutorial, updateCashUI } from './ui.js';
+import { endGame, startTutorial, updateCashUI } from './ui.js';
 import { updateAI } from './systems/ai.js';
 import { resolvePushOut, getCollision } from './utils/collision.js';
 import { showNews, updateNews } from './systems/news.js';
@@ -29,13 +29,17 @@ export let dt = 0;
 export function initUpdating(canvasRef) {
   canvas = canvasRef;
   initStateUpdates(canvas);
+  window.addEventListener('game-reset', updateAutoSave);
   updateAutoSave()
   saveGame()
 }
 
 export function updateAutoSave() {
   if (gs.autoSave) {
-    if (!gs.intervals.autoSave) {
+    if (
+      !gs.intervals.autoSave ||
+      gs.intervals.autoSave.duration !== CONFIG.SAVE_TIME
+    ) {
       addInterval(
         'autoSave',
         'autoSave',
@@ -52,7 +56,9 @@ export function initStateUpdates(canvas) {
   if (gs.inputLock === undefined) gs.inputLock = 0;
   if (gs.menuOpen === undefined) gs.menuOpen = false;
   
-  if (gs.tutorialVersion < 2) {
+  if (gs.gameOverReason) {
+    endGame(gs.gameOverReason);
+  } else if (!gs.tutorialSeen) {
     startTutorial();
   } else {
     showNews('rejoin');
@@ -92,6 +98,9 @@ function setPositions(canvas) {
 }
 
 export function update() {
+  if (gs.player.x === null || gs.player.y === null) {
+    setPositions(canvas);
+  }
   if (gs.paused || gs.tutorialActive) return;
   dt = updateDeltaTime();
 

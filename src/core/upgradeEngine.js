@@ -96,6 +96,7 @@ export function buyUpgrade(id, btn) {
     case 'gubreleyici':
       gs.otoGubre = true;
       purchase(upg, btn);
+      notifyTutorialAction('cleanPoop');
       break;
 
     case 'boyIksiri2':
@@ -110,6 +111,8 @@ export function buyUpgrade(id, btn) {
     case 'altinKase':
       gs.otoYemek = true;
       purchase(upg, btn);
+      notifyTutorialAction('buyFood');
+      notifyTutorialAction('fillBowl');
       break;
 
     case 'bahceAnahtar':
