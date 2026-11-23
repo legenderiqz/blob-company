@@ -4,12 +4,6 @@ export default {
   deathHunger: 'blob died of hungy now start over lol',
   deathPoop: 'blob became ill from pollution and died now start over lol',
   noMails: 'No Mail.',
-  welcome: 'Welcome to Blob Company!',
-  tutorialClickBlob: 'Click the blue creature Blob to earn money.',
-  tutorialBuyFood: 'Buy food from the computer and feed him.',
-  tutorialCleanToilet: 'Clean the toilet and try not to let him starve.',
-  tutorialBuyUpgrades: 'Buy upgrades from the computer.',
-  tutorialDiscover: 'Figure out the rest yourself. Good luck.',
   rejoin: 'Welcome back!',
   day: 'Day',
 
@@ -309,6 +303,57 @@ export default {
   purchased: 'Purchased',
   rentReceived: 'Rent received, amount: $',
   gardenTitle: 'Purchase Plants',
+  tutorial: {
+    intro: {
+      title: 'Welcome to Blob Company!',
+      body: 'We’ll learn the basics by playing. The game is paused for now. Click Continue, then follow the small guide at the top and complete each task to move on.',
+    },
+    step: 'Task',
+    of: 'of',
+    next: 'Continue',
+    finish: 'Finish',
+    skip: 'Skip tutorial',
+    taskCompleted: 'Task completed!',
+    completedTitle: 'Nice work!',
+    completedBody: 'Next task coming up...',
+    completeLabel: 'All done!',
+    complete: {
+      title: 'You’re ready!',
+      body: 'Blob is fed. Keep an eye on hunger and cleanliness, earn money, and explore upgrades at your own pace.',
+    },
+    steps: [
+      {
+        action: 'clickBlob',
+        title: 'Earn money by clicking Blob',
+        body: 'Click Blob once to earn cash. Your balance is shown at the top.',
+      },
+      {
+        action: 'earnTen',
+        title: 'Earn $10 for food',
+        body: 'Keep clicking Blob until you have at least $10. Then move with W, A, S, D or the arrow buttons.',
+      },
+      {
+        action: 'openShop',
+        title: 'Open the computer shop',
+        body: 'Walk close to the computer and press E. If you see multiple interaction prompts, Q switches between them.',
+      },
+      {
+        action: 'buyFood',
+        title: 'Buy Blob Food',
+        body: 'Choose Blob Food in the shop. It costs $10 and will appear in your hand.',
+      },
+      {
+        action: 'fillBowl',
+        title: 'Put the food in the bowl',
+        body: 'The bowl starts with food, so Blob may eat before you can refill it. Once the bowl is empty, walk close and press E to add your food.',
+      },
+      {
+        action: 'cleanPoop',
+        title: 'Clean up after Blob',
+        body: 'Blob will need to use the toilet after eating. When droppings appear, walk up to them and press E until they are cleaned up.',
+      },
+    ],
+  },
 
   garden: {
     apple: {

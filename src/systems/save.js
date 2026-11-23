@@ -22,6 +22,7 @@ const IGNORE_KEYS = [
   'activePost',
   'showPostaMenu',
   'menuOpen',
+  'tutorialActive',
   'aiState',
 
   // Geçici oyun durumu

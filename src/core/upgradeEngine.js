@@ -3,6 +3,7 @@ import { gs } from './state.js';
 import { playMusic, playSound } from '../utils/soundManager.js';
 import { t } from './localization.js';
 import { saveGame } from '../systems/save.js';
+import { notifyTutorialAction } from '../systems/tutorial.js';
 
 export function buyUpgrade(id, btn) {
   const upg = upgrades.find((u) => u.id === id);
@@ -20,6 +21,7 @@ export function buyUpgrade(id, btn) {
       } else if (!gs.handItem) {
         gs.handItem = 'blob_food';
         playSound('purchase');
+        notifyTutorialAction('buyFood');
       }
       break;
 

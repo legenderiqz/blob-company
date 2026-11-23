@@ -1,6 +1,6 @@
 import { gs } from './core/state.js';
 import { CONFIG } from './core/config.js';
-import { updateCashUI } from './ui.js';
+import { startTutorial, updateCashUI } from './ui.js';
 import { updateAI } from './systems/ai.js';
 import { resolvePushOut, getCollision } from './utils/collision.js';
 import { showNews, updateNews } from './systems/news.js';
@@ -8,6 +8,7 @@ import { updateTime } from './systems/time.js';
 import { updatePlants } from './systems/plants.js';
 import { checkNear } from './systems/near.js';
 import { saveGame } from './systems/save.js';
+import { notifyTutorialAction } from './systems/tutorial.js';
 import {
   playSound,
   stopCurrentMusic,
@@ -51,18 +52,8 @@ export function initStateUpdates(canvas) {
   if (gs.inputLock === undefined) gs.inputLock = 0;
   if (gs.menuOpen === undefined) gs.menuOpen = false;
   
-  if (gs.firstTry) {
-    showNews('welcome');
-
-    setTimeout(() => showNews('tutorialClickBlob'), 6000);
-    setTimeout(() => showNews('tutorialBuyFood'), 12000);
-    setTimeout(() => showNews('tutorialCleanToilet'), 18000);
-    setTimeout(() => showNews('tutorialBuyUpgrades'), 24000);
-    setTimeout(() => {
-      showNews('tutorialDiscover');
-      gs.firstTry = false;
-      saveGame();
-    }, 30000);
+  if (gs.tutorialVersion < 2) {
+    startTutorial();
   } else {
     showNews('rejoin');
   }
@@ -101,7 +92,7 @@ function setPositions(canvas) {
 }
 
 export function update() {
-  if (gs.paused) return;
+  if (gs.paused || gs.tutorialActive) return;
   dt = updateDeltaTime();
 
   updateTime(dt);
@@ -337,6 +328,8 @@ export function clickBlob() {
     gs.cashBoost = 0n;
   }
   gs.cash += gs.cashIncrease + gs.cashBoost;
+  notifyTutorialAction('clickBlob');
+  if (gs.cash >= 10n) notifyTutorialAction('earnTen');
   playSound('pop');
   createFloatingText(
     `+${gs.cashIncrease + gs.cashBoost}`,

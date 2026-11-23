@@ -7,6 +7,7 @@ import { takeFurnaceFood, addItemToFurnace, putFoodIntoBowl, RECIPES } from './f
 import { getCollision } from '../utils/collision.js';
 import { t } from '../core/localization.js';
 import { addTimeout } from './timeout.js';
+import { notifyTutorialAction } from './tutorial.js';
 
 // =========================
 // AKSİYON FONKSİYONLARI
@@ -26,6 +27,7 @@ function handlePoop(obj) {
       gs.poops--;
     }
     removeObject(obj)
+    notifyTutorialAction('cleanPoop');
   }
 }
 
@@ -159,6 +161,7 @@ function handleBowl() {
     
   if (!foodPlaceable) return;
   putFoodIntoBowl();
+  notifyTutorialAction('fillBowl');
 }
 
 function handleTrashCan() {
@@ -597,4 +600,3 @@ function updateInteractionGuide() {
       `[Q] ${t('interaction.next')}`;
   }
 }
-

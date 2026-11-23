@@ -22,7 +22,8 @@ export function getUiRoot() {
   createTrendwebHTML() +
   createPostaHTML() +
   createGardenHTML() +
-  createSettingsHTML();
+  createSettingsHTML() +
+  createTutorialHTML();
 }
 
 function createTopBarHTML() {
@@ -191,5 +192,29 @@ function createGardenHTML() {
       </div>
 
     </div>
+  `;
+}
+
+function createTutorialHTML() {
+  return `
+    <div id="tutorial-overlay" role="dialog" aria-modal="true" aria-labelledby="tutorial-title" aria-describedby="tutorial-body">
+      <section id="tutorial-card">
+        <h1 id="tutorial-title"></h1>
+        <p id="tutorial-body"></p>
+        <div id="tutorial-actions">
+          <button id="tutorial-skip" type="button"></button>
+          <button id="tutorial-next" type="button"></button>
+        </div>
+      </section>
+    </div>
+    <aside id="tutorial-hud" aria-live="polite">
+      <div id="tutorial-hud-top">
+        <span id="tutorial-hud-progress"></span>
+        <button id="tutorial-guided-skip" type="button"></button>
+      </div>
+      <h2 id="tutorial-hud-title"></h2>
+      <p id="tutorial-hud-body"></p>
+      <button id="tutorial-guided-done" type="button"></button>
+    </aside>
   `;
 }

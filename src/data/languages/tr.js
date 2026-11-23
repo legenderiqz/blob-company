@@ -4,12 +4,6 @@ export default {
   deathHunger: 'blob açlıktan üldü şimdi baştan başla lol',
   deathPoop: 'blob pislikten hastalandı üldü şimdi baştan başla lol',
   noMails: 'Posta Yok.',
-  welcome: "Blob Company'e hoşgeldin!",
-  tutorialClickBlob: "Mavi yaratık Blob'a tıklayarak para kazan.",
-  tutorialBuyFood: 'Bilgisayardan yemek satın alıp onu doyur.',
-  tutorialCleanToilet: 'Tuvaletini temizle, aç kalmasına izin verme.',
-  tutorialBuyUpgrades: 'Bilgisayardan yükseltmeleri al.',
-  tutorialDiscover: 'Oyunun kalanını kendin keşfet, bol şans!',
   rejoin: 'Tekrar hoşgeldin!',
   day: 'Gün',
   upgrades: {
@@ -318,6 +312,57 @@ export default {
   purchased: 'Satın Alındı',
   rentReceived: 'Kira alındı, miktar: $',
   gardenTitle: 'Bitki Satın Al',
+  tutorial: {
+    intro: {
+      title: 'Blob Company’ye hoş geldin!',
+      body: 'Temelleri oynayarak öğreneceğiz. Şimdilik oyun duraklatıldı. Devam et’e bas, ardından üstteki küçük rehberi takip edip her görevi yaparak ilerle.',
+    },
+    step: 'Görev',
+    of: '/',
+    next: 'Devam et',
+    finish: 'Bitir',
+    skip: 'Öğreticiyi geç',
+    taskCompleted: 'Görev tamamlandı!',
+    completedTitle: 'Güzel iş!',
+    completedBody: 'Sıradaki görev geliyor...',
+    completeLabel: 'Tamamlandı!',
+    complete: {
+      title: 'Artık hazırsın!',
+      body: 'Blob beslendi. Açlığını ve temizliği takip et, para kazan ve yükseltmeleri kendi hızında keşfet.',
+    },
+    steps: [
+      {
+        action: 'clickBlob',
+        title: 'Blob’a tıklayarak para kazan',
+        body: 'Para kazanmak için Blob’a bir kez tıkla. Bakiyen ekranın üstünde görünür.',
+      },
+      {
+        action: 'earnTen',
+        title: 'Yemek için 10$ kazan',
+        body: 'Bakiyen en az 10$ olana kadar Blob’a tıklamaya devam et. Hareket etmek için W, A, S, D tuşlarını veya ok düğmelerini kullan.',
+      },
+      {
+        action: 'openShop',
+        title: 'Bilgisayar mağazasını aç',
+        body: 'Bilgisayara yaklaş ve E’ye bas. Birden fazla etkileşim görürsen Q ile aralarında geçiş yap.',
+      },
+      {
+        action: 'buyFood',
+        title: 'Blob Yemeği satın al',
+        body: 'Mağazadan Blob Yemeği’ni seç. 10$ tutar ve eline gelir.',
+      },
+      {
+        action: 'fillBowl',
+        title: 'Yemeği kaseye koy',
+        body: 'Kasede başlangıçta yemek var; Blob sen dolduramadan önce yiyebilir. Kase boşalınca yanına yaklaşıp elindeki yemeği koymak için E’ye bas.',
+      },
+      {
+        action: 'cleanPoop',
+        title: 'Blob’un tuvaletini temizle',
+        body: 'Blob yemek yedikten sonra tuvaletini kullanacak. Dışkı çıkınca yanına gidip tamamen temizlenene kadar E’ye bas.',
+      },
+    ],
+  },
 
   garden: {
     apple: {

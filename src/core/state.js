@@ -71,6 +71,9 @@ const initialTimeSystem = () => ({
 
 const initialMechanics = () => ({
   currentLang: getInitialLanguage(),
+  tutorialActive: false,
+  tutorialCompleted: false,
+  tutorialVersion: 0,
 
   floatingTexts: [],
 

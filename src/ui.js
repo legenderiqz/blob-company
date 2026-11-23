@@ -9,6 +9,8 @@ import { getGameDiv, getUiRoot} from './core/dom.js';
 import { resetGame } from './utils/resetGame.js';
 import { buyPlant } from './core/gardenEngine.js';
 import { CONFIG } from './core/config.js';
+import { saveGame } from './systems/save.js';
+import { notifyTutorialAction } from './systems/tutorial.js';
 
 let uiRoot;
 let gameDiv;
@@ -23,6 +25,21 @@ export let qBtn;
 let controlsDiv;
 let hideBtn;
 let controlsHidden = false;
+let tutorialOverlay;
+let tutorialHud;
+let tutorialTitle;
+let tutorialBody;
+let tutorialNext;
+let tutorialHudProgress;
+let tutorialHudTitle;
+let tutorialHudBody;
+let tutorialHudSkip;
+let tutorialHudDone;
+let tutorialStep = 0;
+let tutorialGuided = false;
+let tutorialAdvancing = false;
+let tutorialAdvanceTimeout;
+const TUTORIAL_VERSION = 2;
 
 export function initUI() {
   gameDiv = getGameDiv();
@@ -61,6 +78,33 @@ export function initUI() {
     'garden-close',
     closeGardenMenu
   );
+
+  tutorialOverlay = document.getElementById('tutorial-overlay');
+  tutorialTitle = document.getElementById('tutorial-title');
+  tutorialBody = document.getElementById('tutorial-body');
+  tutorialNext = document.getElementById('tutorial-next');
+  tutorialHud = document.getElementById('tutorial-hud');
+  tutorialHudProgress = document.getElementById('tutorial-hud-progress');
+  tutorialHudTitle = document.getElementById('tutorial-hud-title');
+  tutorialHudBody = document.getElementById('tutorial-hud-body');
+  tutorialHudSkip = document.getElementById('tutorial-guided-skip');
+  tutorialHudDone = document.getElementById('tutorial-guided-done');
+  const tutorialSkip = document.getElementById('tutorial-skip');
+  tutorialTitle.textContent = t('tutorial.intro.title');
+  tutorialBody.textContent = t('tutorial.intro.body');
+  tutorialNext.textContent = t('tutorial.next');
+  tutorialNext.onclick = continueTutorial;
+  tutorialSkip.textContent = t('tutorial.skip');
+  tutorialSkip.onclick = finishTutorial;
+  tutorialHudSkip.textContent = t('tutorial.skip');
+  tutorialHudSkip.onclick = finishTutorial;
+  tutorialHudDone.textContent = t('tutorial.finish');
+  tutorialHudDone.onclick = finishTutorial;
+  window.addEventListener('game-tutorial-action', (event) => {
+    completeTutorialAction(event.detail);
+  });
+  document.addEventListener('pointermove', handleTutorialPointerMove);
+  document.addEventListener('pointerdown', handleTutorialPointerDown);
   
   cashSpan = document.getElementById('cashSpan');
   
@@ -83,6 +127,121 @@ export function initTrendweb() {
   renderTrendweb(trendwebContent);
 }
 
+export function startTutorial() {
+  if (!tutorialOverlay) return;
+
+  gs.tutorialActive = true;
+  gs.menuOpen = true;
+  tutorialOverlay.classList.add('active');
+  tutorialNext.focus();
+}
+
+function continueTutorial() {
+  gs.tutorialActive = false;
+  gs.menuOpen = false;
+  tutorialOverlay.classList.remove('active');
+  tutorialGuided = true;
+  tutorialStep = 0;
+  renderTutorialHint();
+  tutorialHud.classList.add('active');
+}
+
+export function completeTutorialAction(action) {
+  if (!tutorialGuided || tutorialAdvancing) return;
+
+  const steps = t('tutorial.steps');
+  if (steps[tutorialStep]?.action !== action) return;
+
+  tutorialAdvancing = true;
+  tutorialHud.classList.add('completed');
+  tutorialHudProgress.textContent = t('tutorial.taskCompleted');
+  tutorialHudTitle.textContent = t('tutorial.completedTitle');
+  tutorialHudBody.textContent = t('tutorial.completedBody');
+  tutorialAdvanceTimeout = setTimeout(advanceTutorial, 1400);
+}
+
+function advanceTutorial() {
+  tutorialAdvanceTimeout = null;
+  tutorialAdvancing = false;
+  tutorialHud.classList.remove('completed');
+  tutorialStep++;
+
+  if (tutorialStep >= t('tutorial.steps').length) {
+    gs.tutorialCompleted = true;
+    gs.tutorialVersion = TUTORIAL_VERSION;
+    gs.firstTry = false;
+    saveGame();
+  }
+
+  renderTutorialHint();
+}
+
+function renderTutorialHint() {
+  const steps = t('tutorial.steps');
+  const complete = tutorialStep >= steps.length;
+  const content = complete
+    ? t('tutorial.complete')
+    : steps[tutorialStep];
+
+  tutorialHudProgress.textContent = complete
+    ? t('tutorial.completeLabel')
+    : `${t('tutorial.step')} ${tutorialStep + 1} ${t('tutorial.of')} ${steps.length}`;
+  tutorialHudTitle.textContent = content.title;
+  tutorialHudBody.textContent = content.body;
+  tutorialHudSkip.hidden = complete;
+  tutorialHudDone.hidden = !complete;
+}
+
+function finishTutorial() {
+  if (tutorialAdvanceTimeout) {
+    clearTimeout(tutorialAdvanceTimeout);
+    tutorialAdvanceTimeout = null;
+  }
+
+  tutorialAdvancing = false;
+  tutorialHud?.classList.remove('completed', 'faded');
+  tutorialGuided = false;
+  gs.tutorialActive = false;
+  gs.menuOpen = false;
+  gs.firstTry = false;
+  gs.tutorialCompleted = true;
+  gs.tutorialVersion = TUTORIAL_VERSION;
+  tutorialOverlay.classList.remove('active');
+  tutorialHud.classList.remove('active');
+  saveGame();
+}
+
+function isInsideTutorialHud(x, y) {
+  const rect = tutorialHud.getBoundingClientRect();
+  return x >= rect.left && x <= rect.right &&
+    y >= rect.top && y <= rect.bottom;
+}
+
+function handleTutorialPointerMove(event) {
+  if (!tutorialGuided || event.pointerType === 'touch') return;
+
+  const overButton = event.target instanceof Element &&
+    event.target.closest('#tutorial-hud button');
+  tutorialHud.classList.toggle(
+    'faded',
+    isInsideTutorialHud(event.clientX, event.clientY) && !overButton
+  );
+}
+
+function handleTutorialPointerDown(event) {
+  if (!tutorialGuided || event.pointerType !== 'touch') return;
+
+  const overButton = event.target instanceof Element &&
+    event.target.closest('#tutorial-hud button');
+
+  if (overButton) return;
+
+  tutorialHud.classList.toggle(
+    'faded',
+    isInsideTutorialHud(event.clientX, event.clientY)
+  );
+}
+
 function toggleControls() {
   controlsHidden = !controlsHidden;
 
@@ -98,6 +257,7 @@ export function openTrendweb() {
 
   gs.menuOpen = true;
   trendwebOverlay.classList.add('active');
+  notifyTutorialAction('openShop');
   setEButtonEnabled(false)
 }
 
