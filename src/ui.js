@@ -223,12 +223,14 @@ export function openGardenMenu() {
   if (gs.gardenMenuOpen) return;
   
   gs.gardenMenuOpen = true;
+  gs.menuOpen = true;
   gardenOverlay.classList.add('active');
   setEButtonEnabled(false)
 }
 
 export function closeGardenMenu() {
   gs.gardenMenuOpen = false;
+  gs.menuOpen = false;
   gardenOverlay.classList.remove('active');
   
   setEButtonEnabled(true)

@@ -1,8 +1,8 @@
 import { GameObject, gs } from '../core/state.js';
 import { CONFIG } from '../core/config.js';
 import { eBtn, qBtn, openTrendweb, openPosta, openGardenMenu } from '../ui.js';
-import { plantSeed, pickPlant } from './plants.js';
-import { currentMusic, pauseMusic, resumeMusic } from '../utils/soundManager.js';
+import { pickPlant } from './plants.js';
+import { playSound, pauseMusic, resumeMusic } from '../utils/soundManager.js';
 import { takeFurnaceFood, addItemToFurnace, putFoodIntoBowl, RECIPES } from './food.js';
 import { getCollision } from '../utils/collision.js';
 import { t } from '../core/localization.js';
@@ -89,6 +89,7 @@ function handleIncomeTable() {
   gs.cash += gs.companyCash;
   gs.companyCash = 0n;
   gs.lastRenderedTableIncome = 0n;
+  playSound('success')
 }
 
 function handleHoparlor() {

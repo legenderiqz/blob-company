@@ -56,11 +56,6 @@ export function updateKeys() {
   gs.keys.right =
     keyboard.d || touch.right;
 
-  gs.keys.ePressed =
-    keyboard.e || touch.e;
-
-  gs.keys.qPressed =
-    keyboard.q || touch.q;
 }
 
 export function keyInteractions() {
@@ -70,8 +65,14 @@ export function keyInteractions() {
       case 'KeyA': gs.keys.keyboard.a = true; break;
       case 'KeyS': gs.keys.keyboard.s = true; break;
       case 'KeyD': gs.keys.keyboard.d = true; break;
-      case 'KeyE': gs.keys.keyboard.e = true; break;
-      case 'KeyQ': gs.keys.keyboard.q = true; break;
+      case 'KeyE':
+        if (!gs.menuOpen && !gs.keys.keyboard.e) gs.keys.ePressed = true;
+        gs.keys.keyboard.e = true;
+        break;
+      case 'KeyQ':
+        if (!gs.menuOpen && !gs.keys.keyboard.q) gs.keys.qPressed = true;
+        gs.keys.keyboard.q = true;
+        break;
       default: return;
     }
 
@@ -94,6 +95,11 @@ export function keyInteractions() {
 }
 
 function setTouch(key, state) {
+  if (state && !gs.keys.touch[key]) {
+    if (key === 'e') gs.keys.ePressed = true;
+    if (key === 'q') gs.keys.qPressed = true;
+  }
+
   gs.keys.touch[key] = state;
   updateKeys();
 }

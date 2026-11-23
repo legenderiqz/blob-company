@@ -5,6 +5,14 @@ const sounds = {};
 export let currentMusic = null;
 export let currentMusicName = null;
 
+function reportPlaybackError(error, mediaType) {
+  if (error.name === 'AbortError') return;
+
+  console.error(
+    `${error.name}: Can't play ${mediaType}. Error Message: ${error.message}`
+  );
+}
+
 export function loadSound(name, src) {
   const audio = new Audio(src);
   audio.preload = 'auto';
@@ -35,11 +43,7 @@ export function playMusic(name, volume = 0.3) {
   currentMusic = music;
   currentMusicName = name;
 
-  music.play().catch(err => {
-    console.error(
-      `${err.name}: Can't play music. Error Message: ${err.message}`
-    );
-  });
+  music.play().catch(err => reportPlaybackError(err, 'music'));
 }
 
 export function pauseMusic() {
@@ -47,7 +51,7 @@ export function pauseMusic() {
 }
 
 export function resumeMusic() {
-  currentMusic?.play();
+  currentMusic?.play().catch(err => reportPlaybackError(err, 'music'));
 }
 
 export function stopMusic(name) {
@@ -88,11 +92,7 @@ export function playSound(name, volume = 1) {
 
   clone.volume = volume;
 
-  clone.play().catch(err => {
-    console.error(
-      `${err.name}: Can't play sound. Error Message: ${err.message}`
-    );
-  });
+  clone.play().catch(err => reportPlaybackError(err, 'sound'));
 }
 
 /* =====================
